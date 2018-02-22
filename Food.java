@@ -1,4 +1,9 @@
-
+/**
+ * Added comments to test git proficiency.
+ * 
+ * @author phoenix
+ *
+ */
 public class Food {
 	
 	public long getExpiringAt() {
