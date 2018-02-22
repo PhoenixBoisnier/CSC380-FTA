@@ -1,5 +1,5 @@
 /**
- * Added comments to test git proficiency.
+ * The main item in the program, stores all the info about the food items.
  * 
  * @author phoenix
  *

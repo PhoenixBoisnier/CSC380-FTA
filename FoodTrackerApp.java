@@ -201,11 +201,16 @@ public class FoodTrackerApp {
 	/**
 	 * This checks to see what foods are close to expiring and prints those
 	 * whose expiration date will show up in the next "t" days.
+	 * This is done by retrieving the current time via 
+	 * System.currentTimeMillis() and comparing it to the time when a 
+	 * food was stored in the program. If the difference is less than
+	 * or equal to the preferred warning time, the food is then printed 
+	 * as part of the warning list.
 	 * @param s
 	 * @param t
 	 */
 	private static void printCloseToExpiring(Storage s) {
-		String value = "Foods about to expire:\n";
+	/*	String value = "Foods about to expire:\n";
 		for(Food foods : s.getFridge()) {
 			if(foods.aboutToExpire(warningTime)){
 				value+=foods.getName()+"\n";
@@ -224,7 +229,7 @@ public class FoodTrackerApp {
 		if(value.equals("Foods about to expire:\n")) {
 			value = "No foods are close to expiring.";
 		}
-		System.out.println(value);
+		System.out.println(value); */
 	}
 	
 	/**
