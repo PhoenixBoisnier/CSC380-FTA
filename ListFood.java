@@ -1,4 +1,8 @@
-
+/**
+ * Obsolete class not used.
+ * @author phoenix
+ *
+ */
 public class ListFood extends Food{
 
 	private int index;
