@@ -4,7 +4,7 @@ package com.FridgeAlert;
  * WHen food is constructed, it takes the time of the system at creation 
  * and stores it in food. This is compared to the system time when about
  * to expire is called and is compared with the time given to main as the 
- * preference.
+ * preference. Words.
  * 
  * @author phoenix
  *
