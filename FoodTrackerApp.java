@@ -201,36 +201,61 @@ public class FoodTrackerApp {
 	
 	/**
 	 * This checks to see what foods are close to expiring and prints those
-	 * whose expiration date will show up in the next "t" days.
-	 * This is done by retrieving the current time via 
-	 * System.currentTimeMillis() and comparing it to the time when a 
-	 * food was stored in the program. If the difference is less than
-	 * or equal to the preferred warning time, the food is then printed 
-	 * as part of the warning list.
+	 * whose expiration date will show up in the next "t" days. The food 
+	 * class takes care of the calculations and will return true or false
+	 * if it is close to expiring. If it is, it is added to the list and
+	 * printed for the user to see.
 	 * @param s
 	 * @param t
 	 */
 	private static void printCloseToExpiring(Storage s) {
-	/*	String value = "Foods about to expire:\n";
+		String value = "Foods about to expire:\n";
 		for(Food foods : s.getFridge()) {
 			if(foods.aboutToExpire(warningTime)){
-				value+=foods.getName()+"\n";
+				value+="\t"+foods.getName()+"\n";
 			}
 		}
 		for(Food foods : s.getFreezer()) {
 			if(foods.aboutToExpire(warningTime)){
-				value+=foods.getName()+"\n";
+				value+="\t"+foods.getName()+"\n";
 			}
 		}
 		for(Food foods : s.getPantry()) {
 			if(foods.aboutToExpire(warningTime)){
-				value+=foods.getName()+"\n";
+				value+="\t"+foods.getName()+"\n";
 			}
 		}
 		if(value.equals("Foods about to expire:\n")) {
 			value = "No foods are close to expiring.";
 		}
-		System.out.println(value); */
+		System.out.println(value); 
+	}
+	
+	/**
+	 * Prints out which foods are expired, if any.
+	 * @param s
+	 */
+	public static void expiredFoods(Storage s) {
+		String value = "Expired foods:\n";
+		for(Food foods : s.getFridge()) {
+			if(foods.isExpired()){
+				value+="\t"+foods.getName()+"\n";
+			}
+		}
+		for(Food foods : s.getFreezer()) {
+			if(foods.isExpired()){
+				value+="\t"+foods.getName()+"\n";
+			}
+		}
+		for(Food foods : s.getPantry()) {
+			if(foods.isExpired()){
+				value+="\t"+foods.getName()+"\n";
+			}
+		}
+		if(value.equals("Expired foods:\n")) {
+			value = "No foods are expired.";
+		}
+		System.out.println(value); 
 	}
 	
 	/**
@@ -254,6 +279,14 @@ public class FoodTrackerApp {
 		}
 	}
 	
+	/**
+	 * This method will remove food from the storage location and add it to the
+	 * grocery list.
+	 * @param food
+	 * @param f
+	 * @param l
+	 * @param m
+	 */
 	public static void removeFood(Storage food, Food f, GroceryList l, Mode m) {
 		food.remove(f,m,l);
 		l.manualAdd(f);

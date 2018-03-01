@@ -1,38 +1,76 @@
 package com.FridgeAlert;
 /**
  * The main item in the program, stores all the info about the food items.
- * WHen food is constructed, it takes the time of the system at creation 
- * and stores it in food. This is compared to the system time when about
- * to expire is called and is compared with the time given to main as the 
- * preference.
+ * This class tracks food based on its name, cost, days to expiration, and 
+ * the system time when the food was placed into the system. Food will keep 
+ * track of how close it is to expiring as well as if it is expired.
  * 
  * @author phoenix
  *
  */
 public class Food {
 	
-	public long getExpiringAt() {
-		return 0;
+	private String name;
+	private double cost;
+	private int daysToExpire;
+	private long time;
+	private long expiration;
+	
+	/**
+	 * A constructor for a new food item.
+	 * @param name
+	 * @param cost
+	 * @param daysToExpire
+	 */
+	public Food(String name, double cost, int daysToExpire) {
+		this.name = name;
+		this.cost = cost;
+		this.daysToExpire = daysToExpire;
+		time = System.currentTimeMillis();
+		//Expiration is the time determined by adding the number of days to
+		//expiration to the system time when the food was input
+		expiration = time+(this.daysToExpire*FoodTrackerApp.millisecondsInDay);
 	}
 
+	/**
+	 * Gets cost.
+	 * @return
+	 */
 	public double getCost() {
-		return 1.0;
+		return cost;
 	}
 	
+	/**
+	 * Gets name of food.
+	 * @return
+	 */
 	public String getName() {
-		return "Food";
+		return name;
 	}
 	
 	/**
 	 * This method should take the waiting time and see if the time from 
 	 * insert is "t" days away from the expiration time.
-	 * @param t
+	 * @param t Preferred time after
 	 * @return
 	 */
 	public boolean aboutToExpire(int t) {
-		//TODO checks insert time with System current time and compares the
-		//difference to the value t
-		if(true) {
+		//This value then has the warning window time subtracted from it and 
+		//checked against the current time. If the current time is greater than
+		//or equal to this new value, the food is close to expiring.
+		if((expiration-(t*FoodTrackerApp.millisecondsInDay)
+				<= System.currentTimeMillis())) {
+			return true;
+		}
+		else return false;
+	}
+	
+	/**
+	 * Checks the current system time to determine if the food is expired.
+	 * @return
+	 */
+	public boolean isExpired() {
+		if(expiration <= System.currentTimeMillis()) {
 			return true;
 		}
 		else return false;

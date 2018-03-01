@@ -3,7 +3,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * 
+ * This class keeps track of what foods will need to be purchased to maintain
+ * the current store of foods in the storage locations. When a food is removed
+ * from the storage location, it should be added to this class in the main class.
  * @author phoenix
  *
  */
