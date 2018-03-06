@@ -24,6 +24,7 @@ public class FoodTrackerApp {
 		String commandList = ""
 				+ "Type any of these commands and press enter when ready.\n"
 				+ "exit: saves data and exits the program.\n"
+				+ "add: asks for info about food to be stored."
 				+ "find: asks for a food to search for.\n"
 				+ "h: displays a list of commands.\n"
 				+ "help: displays a list of commands.\n"
@@ -106,29 +107,12 @@ public class FoodTrackerApp {
 			}
 			
 			//First interaction with the user after setup
-			System.out.println("Where would you like to look?"
-					+ "(fridge, freezer, pantry)");
+			System.out.println("What would you like to do?");
+			System.out.println("Type 'help' for a list of valid options.");
 			input = scone.nextLine();
 			input = input.toUpperCase();
-			if(input.equals("EXIT")) {
-				FoodTrackerApp.exit(p, list, food);
-				running = false;
-				break;
-			}
-			if(input.equals("HELP")) {
-				System.out.println(commandList);
-			}
-			if(input.equals("SETUP")) {
-				setup = true;
-			}
-			else if(!(input.equals("FREEZER")||input.equals("PANTRY")||
-					input.equals("FRIDGE"))) {
-				System.out.println("Invalid location. Please select either"
-						+ "fridge, freezer, or pantry.");
-				System.out.println("Default location selected: Fridge.");
-				input = "FRIDGE";
-			}
-			else {
+			while(!input.equals("EXIT")) {
+				//TODO list each command to implement, then implement it
 				//Secondary loop where input commands are given.
 				/*
 				 * Command list:
@@ -143,11 +127,30 @@ public class FoodTrackerApp {
 				 * 	expire and the grocery list
 				 * 
 				 */
-				FoodTrackerApp.printUpdates(food, list, 
-						System.currentTimeMillis());
-				while(running) {
-					//TODO put the switch case block here for commands given
+				switch (input) {
+					case "EXIT" :{
+						FoodTrackerApp.exit(p, list, food);
+						running = false;
+						break;
+					}
+					case "HELP" :{
+						System.out.println(commandList);
+						break;
+					}
+					case "SETUP" :{
+						setup = true;
+						break;
+					}
+					case "SEARCH" :{
+						//TODO
+						break;
+					}
+					default :{
+						System.out.println("Not a valid command.");
+						System.out.println("Type 'help' for a list of commands.");
+					}
 				}
+				System.out.println("What would you like to do?");
 			}
 		}
 		
@@ -260,27 +263,6 @@ public class FoodTrackerApp {
 			value = "No foods are expired.";
 		}
 		System.out.println(value); 
-	}
-	
-	/**
-	 * Prints the current storage location being interacted with.
-	 * @param m
-	 */
-	public static void printMode(Mode m) {
-		System.out.print("Current mode is: ");
-		switch (m) {
-			case FREEZER:{
-				System.out.println("freezer.");
-				break;
-			}
-			case PANTRY:{
-				System.out.println("pantry.");
-				break;
-			}
-			default:{
-				System.out.println("fridge.");
-			}
-		}
 	}
 	
 	/**
