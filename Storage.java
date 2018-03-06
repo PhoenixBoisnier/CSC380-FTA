@@ -53,16 +53,57 @@ public class Storage {
 		//TODO
 	}
 	
+	/**
+	 * This method returns the freezer as an array list of food.
+	 * @return
+	 */
 	public ArrayList<Food> getFreezer(){
 		return freezer;
 	}
 	
+	/**
+	 * This method returns the fridge as an array list of food.
+	 * @return
+	 */
 	public ArrayList<Food> getFridge(){
 		return fridge;
 	}
 	
+	/**
+	 * This method returns the pantry as an array list of food.
+	 * @return
+	 */
 	public ArrayList<Food> getPantry(){
 		return pantry;
+	}
+	
+	/**
+	 * Returns the contents of each location as a single string list.
+	 */
+	public String toString() {
+		String retVal = "This is the food currently present:\n";
+		retVal+="\tFridge:\n";
+		for(int i = 0; i<this.fridge.size(); i++) {
+			retVal+="\t\t"+this.fridge.get(i).getName()+"\n";
+		}
+		if(this.fridge.size()==0) {
+			retVal+="\t\tEmpty.\n";
+		}
+		retVal+="\tFreezer:\n";
+		for(int i = 0; i<this.freezer.size(); i++) {
+			retVal+="\t\t"+this.freezer.get(i).getName()+"\n";
+		}
+		if(this.freezer.size()==0) {
+			retVal+="\t\tEmpty.\n";
+		}
+		retVal+="\tPantry:\n";
+		for(int i = 0; i<this.pantry.size(); i++) {
+			retVal+="\t\t"+this.pantry.get(i).getName()+"\n";
+		}
+		if(this.pantry.size()==0) {
+			retVal+="\t\tEmpty.\n";
+		}
+		return retVal;
 	}
 
 }

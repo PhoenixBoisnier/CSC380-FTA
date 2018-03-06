@@ -83,11 +83,13 @@ public class GroceryList {
 	 * @param s
 	 */
 	public void removeItem(String s) {
-		for(int i = 0; i<list.size(); i++) {
-			if(list.get(i).getName().equals(s)) {
-				compareList.remove(list.get(i).getName());
-				list.remove(i);
-				break;
+		if(compareList.containsKey(s)) {
+			compareList.remove(s);
+			for(int i = 0; i<list.size(); i++) {
+				if(list.get(i).getName().equals(s)) {
+					list.remove(i);
+					break;
+				}
 			}
 		}
 	}

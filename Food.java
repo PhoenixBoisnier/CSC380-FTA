@@ -31,6 +31,23 @@ public class Food {
 		//expiration to the system time when the food was input
 		expiration = time+(this.daysToExpire*FoodTrackerApp.millisecondsInDay);
 	}
+	
+	/**
+	 * Special constructor used by the file parser.
+	 * @param name
+	 * @param cost
+	 * @param daysToExpire
+	 * @param time
+	 * @param exp
+	 */
+	public Food(String name, double cost, int daysToExpire, long time, 
+			long exp) {
+		this.name = name;
+		this.cost = cost;
+		this.daysToExpire = daysToExpire;
+		this.time = time;
+		this.expiration = exp;
+	}
 
 	/**
 	 * Gets cost.

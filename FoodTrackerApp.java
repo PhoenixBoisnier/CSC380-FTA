@@ -1,5 +1,4 @@
 package com.FridgeAlert;
-import java.io.File;
 import java.util.Scanner;
 
 public class FoodTrackerApp {
@@ -12,14 +11,11 @@ public class FoodTrackerApp {
 	
 	public static void main(String[] args) {
 		
-		//TODO read up on file objects.
-		File memory = null;
-		//TODO build parser and parse file to build info
-		//TODO change prevTime to parsed info
-		prevTime = 0;
 		GroceryList list = new GroceryList();
-		//TODO rename class as needed
-		Storage food = null;
+		Storage food = new Storage();
+		FTAParser p = new FTAParser(list, food);
+		list = p.getList();
+		food = p.getStorage();
 		//TODO make command list
 		String commandList = ""
 				+ "Type any of these commands and press enter when ready.\n"
@@ -108,7 +104,7 @@ public class FoodTrackerApp {
 			input = scone.nextLine();
 			input = input.toUpperCase();
 			if(input.equals("EXIT")) {
-				FoodTrackerApp.exit(memory);
+				FoodTrackerApp.exit(p, list, food);
 				running = false;
 				break;
 			}
@@ -155,11 +151,12 @@ public class FoodTrackerApp {
 	
 	/**
 	 * 
-	 * @param f
 	 * @param p
+	 * @param l
+	 * @param s
 	 */
-	public static void exit(File f/*, FTAParser p*/) {
-		//TODO use parser to write to file
+	public static void exit(FTAParser p, GroceryList l, Storage s) {
+		p.saveFile(l, s);
 	}
 	
 	/**
