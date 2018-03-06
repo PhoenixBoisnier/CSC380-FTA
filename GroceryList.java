@@ -28,6 +28,23 @@ public class GroceryList {
 	}
 	
 	/**
+	 * Returns the size of the grocery list.
+	 * @return
+	 */
+	public int getSize() {
+		return list.size();
+	}
+	
+	/**
+	 * Used to retrieve a specific food item from the list
+	 * @param i
+	 * @return
+	 */
+	public Food getFood(int i) {
+		return list.get(i);
+	}
+	
+	/**
 	 * Takes a list of food and adds it to the grocery list.
 	 * @param foods
 	 */

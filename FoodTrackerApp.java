@@ -8,6 +8,7 @@ public class FoodTrackerApp {
 	static int grocGenerate = 7;
 	static Mode m = Mode.FRIDGE;
 	static long prevTime;
+	static int exists = 0;
 	
 	public static void main(String[] args) {
 		
@@ -16,6 +17,9 @@ public class FoodTrackerApp {
 		FTAParser p = new FTAParser(list, food);
 		list = p.getList();
 		food = p.getStorage();
+		exists = p.getExists();
+		warningTime = p.getDaysWarning();
+		grocGenerate = p.getListGenerate();
 		//TODO make command list
 		String commandList = ""
 				+ "Type any of these commands and press enter when ready.\n"
@@ -33,6 +37,9 @@ public class FoodTrackerApp {
 		
 		boolean running = true;
 		boolean setup = true;
+		if(exists==1) {
+			setup = false;
+		}
 		Scanner scone = new Scanner(System.in);
 		
 		System.out.println("Welcome to the food tracker app.");
@@ -156,7 +163,7 @@ public class FoodTrackerApp {
 	 * @param s
 	 */
 	public static void exit(FTAParser p, GroceryList l, Storage s) {
-		p.saveFile(l, s);
+		p.saveFile(l, s, warningTime, grocGenerate);
 	}
 	
 	/**

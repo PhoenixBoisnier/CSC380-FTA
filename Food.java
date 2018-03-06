@@ -48,6 +48,20 @@ public class Food {
 		this.time = time;
 		this.expiration = exp;
 	}
+	
+	/**
+	 * Special method used by the parser.
+	 * @return
+	 */
+	public String saveFood() {
+		String retVal = "";
+		retVal+=name+"\n";
+		retVal+=cost+"\n";
+		retVal+=daysToExpire+"\n";
+		retVal+=time+"\n";
+		retVal+=expiration+"\n";
+		return retVal;
+	}
 
 	/**
 	 * Gets cost.
