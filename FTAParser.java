@@ -65,6 +65,7 @@ public class FTAParser {
 			try {
 				input.createNewFile();
 			} catch (IOException e1) {
+				//TODO find out why save file is found
 				System.out.println("Save file found.");
 			}
 		}
@@ -155,6 +156,7 @@ public class FTAParser {
 		try {
 			write = new BufferedWriter(new FileWriter(output));
 		} catch (IOException e) {
+			//TODO find out why save-to file is not found
 			System.out.println("Save-To file not found.");
 		}
 		try {
