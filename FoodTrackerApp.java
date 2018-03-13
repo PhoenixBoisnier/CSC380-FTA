@@ -127,6 +127,7 @@ public class FoodTrackerApp {
 				 * 	expire and the grocery list
 				 * 
 				 */
+				input = scone.nextLine();
 				switch (input) {
 					case "EXIT" :{
 						FoodTrackerApp.exit(p, list, food);
