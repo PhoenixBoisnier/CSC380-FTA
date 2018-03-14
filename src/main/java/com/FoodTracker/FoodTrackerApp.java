@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class FoodTrackerApp {
 	
-	final static int millisecondsInDay = 86400000;
+	public final static int millisecondsInDay = 86400000;
 	static int warningTime = 3;
 	static int grocGenerate = 7;
 	static Mode m = Mode.FRIDGE;

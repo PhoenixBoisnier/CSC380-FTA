@@ -62,6 +62,14 @@ public class Food {
 		retVal+=expiration+"\n";
 		return retVal;
 	}
+	
+	public String privateDeets() {
+		String retVal = "";
+		retVal+=daysToExpire+"\n";
+		retVal+=time+"\n";
+		retVal+=expiration+"\n";
+		return retVal;
+	}
 
 	/**
 	 * Gets cost.
