@@ -44,9 +44,10 @@ public class FoodTrackerApp {
 		Scanner scone = new Scanner(System.in);
 		
 		System.out.println("Welcome to the food tracker app.");
+		String input = "";
 		//Main loop that runs the program.
 		while(running) {
-			String input = "";
+			
 			
 			//prints out foods about to expire as long as there are foods
 			//prints out the grocery list as long as there are foods
@@ -107,27 +108,23 @@ public class FoodTrackerApp {
 			}
 			
 			//First interaction with the user after setup
-			System.out.println("What would you like to do?");
-			System.out.println("Type 'help' for a list of valid options.");
-			input = scone.nextLine();
-			input = input.toUpperCase();
-			while(!input.equals("EXIT")) {
+			while(!input.equals("EXIT")&&setup==false) {
 				//TODO list each command to implement, then implement it
 				//Secondary loop where input commands are given.
-				/*
-				 * Command list:
-				 * help/h: prints command list
-				 * quit: quits the program, you quitter...
-				 * exit: saves data and exits program
-				 * up: returns to storage selection
-				 * mode: prints the current storage location
-				 * find/look/search: searches for food in current location
-				 * setup: runs the setup
-				 * warnings: calls the functions that print food about to 
-				 * 	expire and the grocery list
-				 * 
+				/*TODO compare to project outline for full list of TODO
+				+ "exit: saves data and exits the program.\n"
+				+ "add: asks for info about food to be stored."
+				+ "find: asks for a food to search for.\n"
+				+ "look: asks for a food to search for.\n"
+				+ "mode: returns to mode setup (fridge, freezer, pantry).\n"
+				+ "quit: saves data and quits the program.\n"
+				+ "search: asks for a food to search for.\n"
+				+ "warnings: prints the information on the foods about to"
+				+ "\nexpire, if any, as well as the grocery list, if ready.\n";
 				 */
+				System.out.println("What would you like to do?");
 				input = scone.nextLine();
+				input = input.toUpperCase();
 				switch (input) {
 					case "EXIT" :{
 						FoodTrackerApp.exit(p, list, food);
@@ -135,6 +132,10 @@ public class FoodTrackerApp {
 						break;
 					}
 					case "HELP" :{
+						System.out.println(commandList);
+						break;
+					}
+					case "H" :{
 						System.out.println(commandList);
 						break;
 					}
@@ -151,7 +152,6 @@ public class FoodTrackerApp {
 						System.out.println("Type 'help' for a list of commands.");
 					}
 				}
-				System.out.println("What would you like to do?");
 			}
 		}
 		
