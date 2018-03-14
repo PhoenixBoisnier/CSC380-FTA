@@ -1,8 +1,8 @@
-com/FridgeAlert/GroceryList.class
-com/FridgeAlert/Food.class
-com/FridgeAlert/FTAParser.class
-com/FridgeAlert/Mode.class
-com/FridgeAlert/Storage$1.class
-com/FridgeAlert/Storage.class
-com/FridgeAlert/FoodTrackerApp.class
-com/FridgeAlert/ProjectDescription.class
+main/java/com/FoodTracker/Storage$1.class
+main/java/com/FoodTracker/Food.class
+main/java/com/FoodTracker/ProjectDescription.class
+main/java/com/FoodTracker/FoodTrackerApp.class
+main/java/com/FoodTracker/Storage.class
+main/java/com/FoodTracker/GroceryList.class
+main/java/com/FoodTracker/Mode.class
+main/java/com/FoodTracker/FTAParser.class

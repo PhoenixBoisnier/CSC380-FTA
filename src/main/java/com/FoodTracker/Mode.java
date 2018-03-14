@@ -1,7 +1,6 @@
-package com.FridgeAlert;
+package main.java.com.FoodTracker;
 /**
  * This is used by the storage file to tell main where we are looking.
- * Testinggggggg.
  * 
  * @author phoenix
  *

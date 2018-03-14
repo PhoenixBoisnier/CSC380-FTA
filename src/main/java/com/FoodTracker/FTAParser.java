@@ -1,4 +1,4 @@
-package com.FridgeAlert;
+package main.java.com.FoodTracker;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;

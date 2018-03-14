@@ -1,4 +1,4 @@
-package com.FridgeAlert;
+package main.java.com.FoodTracker;
 /**
  * The main item in the program, stores all the info about the food items.
  * This class tracks food based on its name, cost, days to expiration, and 

@@ -1,4 +1,4 @@
-package com.FridgeAlert;
+package main.java.com.FoodTracker;
 import java.util.Scanner;
 
 public class FoodTrackerApp {

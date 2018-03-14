@@ -1,4 +1,4 @@
-package com.FoodTracker;
+package test.java.com.FoodTracker;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
