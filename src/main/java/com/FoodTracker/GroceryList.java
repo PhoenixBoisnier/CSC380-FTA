@@ -36,7 +36,7 @@ public class GroceryList {
 	}
 	
 	/**
-	 * Used to retrieve a specific food item from the list
+	 * Used to retrieve a specific food item by index from the list
 	 * @param i
 	 * @return
 	 */
