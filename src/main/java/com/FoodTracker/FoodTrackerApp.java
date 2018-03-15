@@ -23,13 +23,12 @@ public class FoodTrackerApp {
 		//TODO make command list
 		String commandList = ""
 				+ "Type any of these commands and press enter when ready.\n"
-				+ "exit: saves data and exits the program.\n"
 				+ "add: asks for info about food to be stored."
+				+ "exit: saves data and exits the program.\n"
 				+ "find: asks for a food to search for.\n"
 				+ "h: displays a list of commands.\n"
 				+ "help: displays a list of commands.\n"
 				+ "look: asks for a food to search for.\n"
-				+ "mode: returns to mode setup (fridge, freezer, pantry).\n"
 				+ "quit: saves data and quits the program.\n"
 				+ "search: asks for a food to search for.\n"
 				+ "setup: returns to the setup.\n"
@@ -114,11 +113,7 @@ public class FoodTrackerApp {
 				/*TODO compare to project outline for full list of TODO
 				+ "exit: saves data and exits the program.\n"
 				+ "add: asks for info about food to be stored."
-				+ "find: asks for a food to search for.\n"
-				+ "look: asks for a food to search for.\n"
-				+ "mode: returns to mode setup (fridge, freezer, pantry).\n"
 				+ "quit: saves data and quits the program.\n"
-				+ "search: asks for a food to search for.\n"
 				+ "warnings: prints the information on the foods about to"
 				+ "\nexpire, if any, as well as the grocery list, if ready.\n";
 				 */
@@ -127,6 +122,11 @@ public class FoodTrackerApp {
 				input = input.toUpperCase();
 				switch (input) {
 					case "EXIT" :{
+						FoodTrackerApp.exit(p, list, food);
+						running = false;
+						break;
+					}
+					case "QUIT" :{
 						FoodTrackerApp.exit(p, list, food);
 						running = false;
 						break;
@@ -144,12 +144,20 @@ public class FoodTrackerApp {
 						break;
 					}
 					case "SEARCH" :{
-						//TODO
+						FoodTrackerApp.findIt(scone, input, food);
+						break;
+					}
+					case "FIND" :{
+						FoodTrackerApp.findIt(scone, input, food);
+						break;
+					}
+					case "LOOK" :{
+						FoodTrackerApp.findIt(scone, input, food);
 						break;
 					}
 					default :{
 						System.out.println("Not a valid command.");
-						System.out.println("Type 'help' for a list of commands.");
+						System.out.println("Type 'help' or 'h' for a list of commands.");
 					}
 				}
 			}
@@ -168,6 +176,108 @@ public class FoodTrackerApp {
 	 */
 	public static void exit(FTAParser p, GroceryList l, Storage s) {
 		p.saveFile(l, s, warningTime, grocGenerate);
+	}
+	
+	/**
+	 * This method searches through the storage location specified, or all
+	 * if the location specified does not exist. If found, it will output
+	 * the location it was found in if it matches the specified location, 
+	 * otherwise will only specify that it was found. If it is not found,
+	 * the user will be notified.
+	 * @param scone
+	 * @param input
+	 * @param food
+	 */
+	public static void findIt(Scanner scone, String input, Storage food) {
+		System.out.println("Where would you like to search?");
+		String modeInput = scone.nextLine();
+		System.out.println("What would you like to search for?");
+		input = scone.nextLine();
+		boolean present = false;
+		switch (modeInput.toUpperCase()) {
+			case "FRIDGE" :{
+				for(int i = 0; i<food.getFridge().size(); i++) {
+					if(food.getFridge().get(i).getName().toUpperCase().
+							equals(input.toUpperCase())) {
+						present = true;
+						break;
+					}
+				}
+				if(present) {
+					System.out.println(input+" was found in the "+
+							modeInput+".");
+				}
+				else {
+					System.out.println(input+" was not found.");
+				}
+				break;
+			}
+			case "FREEZER" :{
+				for(int i = 0; i<food.getFreezer().size(); i++) {
+					if(food.getFreezer().get(i).getName().toUpperCase().
+							equals(input.toUpperCase())) {
+						present = true;
+						break;
+					}
+				}
+				if(present) {
+					System.out.println(input+" was found in the "+
+							modeInput+".");
+				}
+				else {
+					System.out.println(input+" was not found.");
+				}
+				break;
+			}
+			case "PANTRY" :{
+				for(int i = 0; i<food.getPantry().size(); i++) {
+					if(food.getPantry().get(i).getName().toUpperCase().
+							equals(input.toUpperCase())) {
+						present = true;
+						break;
+					}
+				}
+				if(present) {
+					System.out.println(input+" was found in the "+
+							modeInput+".");
+				}
+				else {
+					System.out.println(input+" was not found.");
+				}
+				break;
+			}
+			default :{
+				System.out.println("Location not found. Searching entire storage.");
+				for(int i = 0; i<food.getPantry().size(); i++) {
+					if(food.getPantry().get(i).getName().toUpperCase().
+							equals(input.toUpperCase())) {
+						present = true;
+						break;
+					}
+				}
+				for(int i = 0; i<food.getFreezer().size(); i++) {
+					if(food.getFreezer().get(i).getName().toUpperCase().
+							equals(input.toUpperCase())) {
+						present = true;
+						break;
+					}
+				}
+				for(int i = 0; i<food.getFridge().size(); i++) {
+					if(food.getFridge().get(i).getName().toUpperCase().
+							equals(input.toUpperCase())) {
+						present = true;
+						break;
+					}
+				}
+				if(present) {
+					System.out.println(input+" was found.");
+				}
+				else {
+					System.out.println(input+" was not found.");
+				}
+				break;
+			}
+		}
 	}
 	
 	/**
