@@ -169,7 +169,7 @@ public class FoodTrackerApp {
 	}
 	
 	/**
-	 * 
+	 * This method saves the current data into a text file using the parser.
 	 * @param p
 	 * @param l
 	 * @param s
