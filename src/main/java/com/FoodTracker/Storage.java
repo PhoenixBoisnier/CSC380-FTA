@@ -50,7 +50,35 @@ public class Storage {
 	 * @param l
 	 */
 	public void remove(Food f, Mode m, GroceryList l) {
-		//TODO
+		switch(m) {
+		case FREEZER:{
+			for(int i = 0; i<freezer.size(); i++) {
+				if(freezer.get(i).getName().equals(f.getName())) {
+					l.manualAdd(freezer.remove(i));
+					break;
+				}
+			}
+			break;
+		}
+		case PANTRY:{
+			for(int i = 0; i<pantry.size(); i++) {
+				if(pantry.get(i).getName().equals(f.getName())) {
+					l.manualAdd(pantry.remove(i));
+					break;
+				}
+			}
+			break;
+		}
+		default :{
+			for(int i = 0; i<fridge.size(); i++) {
+				if(fridge.get(i).getName().equals(f.getName())) {
+					l.manualAdd(fridge.remove(i));
+					break;
+				}
+			}
+			break;
+		}
+	}
 	}
 	
 	/**

@@ -5,6 +5,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import main.java.com.FoodTracker.*;
 
+/**
+ * This tests the Food class.
+ * 
+ * @author phoenix
+ *
+ */
 public class FoodTest {
 	  @Test public void testName() {
 		  
@@ -42,6 +48,7 @@ public class FoodTest {
 		  assertTrue(expBread.isExpired());
 		  
 		  //This section tests is about to expire
+		  //TODO figure out if I'm testing wrong or if method is not functioning
 	/*	  final int THREEDAYS = 3;
 		  assertFalse(cans.aboutToExpire(THREEDAYS));
 		  assertTrue(abtCans.aboutToExpire(THREEDAYS));

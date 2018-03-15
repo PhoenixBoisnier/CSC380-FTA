@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import org.junit.*;
 import main.java.com.FoodTracker.*;
 
+/**
+ * This tests the GroceryList class.
+ * 
+ * @author phoenix
+ *
+ */
 public class GroceryListTest {
 	  @Test public void testName() {
 		  
