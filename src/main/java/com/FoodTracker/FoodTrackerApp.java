@@ -10,6 +10,11 @@ public class FoodTrackerApp {
 	static long prevTime;
 	static int exists = 0;
 	
+	/* Overall to-do list
+	 * TODO:	make test class for FoodTrackerApp
+	 * 			put method tests into separate test methods
+	 */
+	
 	/*TODO check this throughout 
 	 *10: Stores food by category as well as other info, such as expiration date
 	 *10: Displays food available based on some order
@@ -17,7 +22,7 @@ public class FoodTrackerApp {
 	 *3: Recipe storage
 	 *3: Favorite foods listing
 	 *10: Persistent memory
-	 *7: Grocery list generation
+	 *7: Grocery list generation------------------------------------------done
 	 *9: Command menu
 	 *7: Search-able lists------------------------------------------------done
 	 *5: Leftover storage/retrieval
@@ -25,11 +30,11 @@ public class FoodTrackerApp {
 	 *
 	 *10: User can use this program to store food in a database.----------done
 	 *2: User can see stored food based on expiration date/other info.
-	 *1: User's input is stored in categories.
+	 *1: User's input is stored in categories.----------------------------done
 	 *5: User's info is stored between sessions.
 	 *3: User interacts with the program via command menu.
 	 *3: User can search lists by food name/other.------------------------done
-	 *2: Program will generate shopping lists for user.
+	 *2: Program will generate shopping lists for user.-------------------done
 	 *2: User can store special food type, "leftovers."
 	 *2: User can sort food based on flavor/type.
 	 *2: User can store and retrieve favorite foods.
@@ -50,17 +55,18 @@ public class FoodTrackerApp {
 		//TODO make command list
 		String commandList = ""
 				+ "Type any of these commands and press enter when ready.\n"
-				+ "add: asks for info about food to be stored."
-				+ "exit: saves data and exits the program.\n"
-				+ "find: asks for a food to search for.\n"
-				+ "h: displays a list of commands.\n"
-				+ "help: displays a list of commands.\n"
-				+ "look: asks for a food to search for.\n"
-				+ "quit: saves data and quits the program.\n"
-				+ "remove: removes a food from the invetory.\n"
-				+ "search: asks for a food to search for.\n"
-				+ "setup: returns to the setup.\n"
-				+ "warnings: prints the information on the foods about to"
+				+ "add: Asks for info about food to be stored."
+				+ "exit: Saves data and exits the program.\n"
+				+ "find: Asks for a food to search for.\n"
+				+ "h: Displays a list of commands.\n"
+				+ "help: Displays a list of commands.\n"
+				+ "list: Prints the grocery list, regardless of status.\n"
+				+ "look: Asks for a food to search for.\n"
+				+ "quit: Saves data and quits the program.\n"
+				+ "remove: Removes a food from the invetory.\n"
+				+ "search: Asks for a food to search for.\n"
+				+ "setup: Returns to the setup.\n"
+				+ "warnings: Prints the information on the foods about to"
 				+ "\nexpire, if any, as well as the grocery list, if ready.\n";
 		
 		boolean running = true;
@@ -138,15 +144,15 @@ public class FoodTrackerApp {
 			while(!input.equals("EXIT")&&setup==false) {
 				//TODO list each command to implement, then implement it
 				//Secondary loop where input commands are given.
-				/*TODO compare to project outline for full list of TODO
-				+ "Type any of these commands and press enter when ready.\n"
+				/*
 				done - "add: asks for info about food to be stored."
-				+ "exit: saves data and exits the program.\n"
+				done - "exit: saves data and exits the program.\n"
 				done - "find: asks for a food to search for.\n"
 				done - "h: displays a list of commands.\n"
 				done - "help: displays a list of commands.\n"
+				+ "list: Prints the grocery list, regardless of status.\n"
 				done - "look: asks for a food to search for.\n"
-				+ "quit: saves data and quits the program.\n"
+				done - "quit: saves data and quits the program.\n"
 				+ "remove: removes a food from the invetory.\n"
 				done - "search: asks for a food to search for.\n"
 				done - "setup: returns to the setup.\n"
@@ -215,6 +221,7 @@ public class FoodTrackerApp {
 	 * @param s
 	 */
 	public static void exit(FTAParser p, GroceryList l, Storage s) {
+		//TODO fix the parser
 		p.saveFile(l, s, warningTime, grocGenerate);
 	}
 	
