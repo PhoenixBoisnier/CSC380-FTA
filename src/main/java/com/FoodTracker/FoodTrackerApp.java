@@ -10,6 +10,33 @@ public class FoodTrackerApp {
 	static long prevTime;
 	static int exists = 0;
 	
+	/*TODO check this throughout 
+	 *10: Stores food by category as well as other info, such as expiration date
+	 *10: Displays food available based on some order
+	 *10: Can add/remove food to the list---------------------------------done
+	 *3: Recipe storage
+	 *3: Favorite foods listing
+	 *10: Persistent memory
+	 *7: Grocery list generation
+	 *9: Command menu
+	 *7: Search-able lists------------------------------------------------done
+	 *5: Leftover storage/retrieval
+	 *1: GUI
+	 *
+	 *10: User can use this program to store food in a database.----------done
+	 *2: User can see stored food based on expiration date/other info.
+	 *1: User's input is stored in categories.
+	 *5: User's info is stored between sessions.
+	 *3: User interacts with the program via command menu.
+	 *3: User can search lists by food name/other.------------------------done
+	 *2: Program will generate shopping lists for user.
+	 *2: User can store special food type, "leftovers."
+	 *2: User can sort food based on flavor/type.
+	 *2: User can store and retrieve favorite foods.
+	 *2: User can store and retrieve recipes.
+	 *10: User can interact via GUI.
+	 */
+	
 	public static void main(String[] args) {
 		
 		GroceryList list = new GroceryList();
@@ -30,6 +57,7 @@ public class FoodTrackerApp {
 				+ "help: displays a list of commands.\n"
 				+ "look: asks for a food to search for.\n"
 				+ "quit: saves data and quits the program.\n"
+				+ "remove: removes a food from the invetory.\n"
 				+ "search: asks for a food to search for.\n"
 				+ "setup: returns to the setup.\n"
 				+ "warnings: prints the information on the foods about to"
@@ -111,9 +139,17 @@ public class FoodTrackerApp {
 				//TODO list each command to implement, then implement it
 				//Secondary loop where input commands are given.
 				/*TODO compare to project outline for full list of TODO
+				+ "Type any of these commands and press enter when ready.\n"
+				done - "add: asks for info about food to be stored."
 				+ "exit: saves data and exits the program.\n"
-				+ "add: asks for info about food to be stored."
+				done - "find: asks for a food to search for.\n"
+				done - "h: displays a list of commands.\n"
+				done - "help: displays a list of commands.\n"
+				done - "look: asks for a food to search for.\n"
 				+ "quit: saves data and quits the program.\n"
+				+ "remove: removes a food from the invetory.\n"
+				done - "search: asks for a food to search for.\n"
+				done - "setup: returns to the setup.\n"
 				+ "warnings: prints the information on the foods about to"
 				+ "\nexpire, if any, as well as the grocery list, if ready.\n";
 				 */
@@ -155,6 +191,10 @@ public class FoodTrackerApp {
 						FoodTrackerApp.findIt(scone, input, food);
 						break;
 					}
+					case "ADD" :{
+						FoodTrackerApp.addIt(scone, input, food, list);
+						break;
+					}
 					default :{
 						System.out.println("Not a valid command.");
 						System.out.println("Type 'help' or 'h' for a list of commands.");
@@ -176,6 +216,89 @@ public class FoodTrackerApp {
 	 */
 	public static void exit(FTAParser p, GroceryList l, Storage s) {
 		p.saveFile(l, s, warningTime, grocGenerate);
+	}
+	
+	/**
+	 * This method is used to put foods into their storage locations. If no 
+	 * valid location is specified, the new food will be put into the fridge.
+	 * @param scone
+	 * @param input
+	 * @param food
+	 * @param list
+	 */
+	public static void addIt(Scanner scone, String input, Storage food,
+			GroceryList list) {
+		System.out.println("Where will you be storing this food?");
+		System.out.println("Default location is the fridge.");
+		input = scone.next();
+		switch (input.toUpperCase()) {
+			case "FREEZER" :{
+				try {
+					food.AddFood(FoodTrackerApp.makeFood(scone), 
+							Mode.FREEZER, list);
+				} catch (AddFoodException e) {
+					e.printStackTrace();
+				}
+				break;
+			}
+			case "PANTRY" :{
+				try {
+					food.AddFood(FoodTrackerApp.makeFood(scone), 
+							Mode.PANTRY, list);
+				} catch (AddFoodException e) {
+					e.printStackTrace();
+				}
+				break;
+			}
+			default :{
+				try {
+					food.AddFood(FoodTrackerApp.makeFood(scone), 
+							Mode.FRIDGE, list);
+				} catch (AddFoodException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	/**
+	 * This method is used by the addIt method to take user input and generate
+	 * a new food object.
+	 * @param scone
+	 * @param input
+	 * @throws AddFoodException 
+	 */
+	public static Food makeFood(Scanner scone) throws AddFoodException {
+		System.out.println("What is this food called?");
+		String foodName = scone.next();
+		System.out.println("How much did this food cost?");
+		double foodCost = 0.0;
+		try {
+			foodCost = Double.parseDouble(scone.next());
+		}
+		catch (NumberFormatException e) {
+			System.out.println("Invalid input, food's cost is set to 0.");
+		}
+		System.out.println("How many days until it expires?");
+		int foodExpr = -1;
+		while (foodExpr < 0) {
+			try {
+				foodExpr = Integer.parseInt(scone.next());
+			}
+			catch (NumberFormatException e) {
+				System.out.println("Not a valid input. Expiration is a number"
+						+ " of days.");
+			}
+		}
+		System.out.println("Adding food "+foodName+" costing "+foodCost+
+				" expriring in "+foodExpr+" days. \nDoes this look correct? y/n");
+		String correct = scone.next();
+		if(correct.toUpperCase().equals("Y")) {
+			return new Food(foodName, foodCost, foodExpr);
+		}
+		else {
+			throw new AddFoodException();
+		}
 	}
 	
 	/**

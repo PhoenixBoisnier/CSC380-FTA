@@ -33,7 +33,6 @@ public class ProjectDescription {
 	 *9: Command menu
 	 *7: Search-able lists
 	 *5: Leftover storage/retrieval
-	 *3: Food by flavor/type
 	 *1: GUI
 	 *
 	 *User Stories:
@@ -46,7 +45,6 @@ public class ProjectDescription {
 	 *3: User can search lists by food name/other.
 	 *2: Program will generate shopping lists for user.
 	 *2: User can store special food type, "leftovers."
-	 *2: User can sort food based on flavor/type.
 	 *2: User can store and retrieve favorite foods.
 	 *2: User can store and retrieve recipes.
 	 *10: User can interact via GUI.
