@@ -13,23 +13,28 @@ import main.java.com.FoodTracker.*;
  *
  */
 public class GroceryListTest {
-	  @Test public void testName() {
+	
+		GroceryList testList = new GroceryList();
+		ArrayList<Food> foods = new ArrayList<>();
+	
+	  @Test public void manualAddTest() {
 		  
-		  GroceryList testList = new GroceryList();
-		  
-		  //Testing manual add
 		  testList.manualAdd(new Food(null, 0, 0));
 		  assertTrue(testList.getSize()==1);
 		  
-		  //Testing auto add
+	  }
+	  
+	  @Test public void autoAddTest() {
+		
 		  testList = new GroceryList();
-		  ArrayList<Food> foods = new ArrayList<>();
 		  foods.add(new Food(null, 0, 0));
 		  foods.add(new Food(null, 0, 0));
 		  testList.autoAdd(foods);
 		  assertTrue(testList.getSize()==2);
+	  }
 		  
-		  //Testing to String
+	  @Test public void toStringTest() {
+		  
 		  testList = new GroceryList();
 		  assertTrue(testList.toString().equals("You don't have anything in your list."));
 		  testList.manualAdd(new Food("Muffins", 2.00, 3));
@@ -37,7 +42,10 @@ public class GroceryListTest {
 		  assertTrue(testList.toString().equals(testList.getFood(0).getName()+
 				  ", cost: "+testList.getFood(0).getCost()+"\n"));
 		  
-		  //Testing check inventory and remove item
+	  }
+		
+	  @Test public void inventoryTest() {
+		  
 		  testList = new GroceryList();
 		  foods = new ArrayList<>();
 		  Food fruit = new Food("fruit", 10.00, 1);
@@ -53,5 +61,6 @@ public class GroceryListTest {
 		  assertTrue(testList.getFood(0).getName().equals(cans.getName()));
 		  testList.removeItem(cans.getName());
 		  assertTrue(testList.getSize()==0);
-	  }
+		  
+	  }	  
 	}
