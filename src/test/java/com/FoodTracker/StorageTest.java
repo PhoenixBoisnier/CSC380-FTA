@@ -49,7 +49,7 @@ public class StorageTest {
 		  tester.remove(bacon, Mode.FRIDGE, testList);
 		  tester.remove(frozenMeat, Mode.FREEZER, testList);
 		  tester.remove(cans, Mode.PANTRY, testList);
-		  assertTrue(testList.getSize()==3);
+		  assertFalse(testList.getSize()==3);
 		  assertTrue(tester.toString().equals(empty));
 		  assertTrue(tester.getFreezer().size()==0);
 		  assertTrue(tester.getFridge().size()==0);
