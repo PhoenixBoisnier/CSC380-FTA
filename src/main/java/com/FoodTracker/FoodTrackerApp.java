@@ -19,14 +19,12 @@ public class FoodTrackerApp {
 	 *10: Stores food by category as well as other info, such as expiration date
 	 *10: Displays food available based on some order
 	 *10: Can add/remove food to the list---------------------------------done
-	 *3: Recipe storage
-	 *3: Favorite foods listing
 	 *10: Persistent memory
-	 *7: Grocery list generation------------------------------------------done
 	 *9: Command menu
+	 *7: Grocery list generation------------------------------------------done
 	 *7: Search-able lists------------------------------------------------done
 	 *5: Leftover storage/retrieval
-	 *1: GUI
+	 *3: Favorite foods listing
 	 *
 	 *10: User can use this program to store food in a database.----------done
 	 *2: User can see stored food based on expiration date/other info.
@@ -36,10 +34,8 @@ public class FoodTrackerApp {
 	 *3: User can search lists by food name/other.------------------------done
 	 *2: Program will generate shopping lists for user.-------------------done
 	 *2: User can store special food type, "leftovers."
-	 *2: User can sort food based on flavor/type.
 	 *2: User can store and retrieve favorite foods.
-	 *2: User can store and retrieve recipes.
-	 *10: User can interact via GUI.
+	 *
 	 */
 	
 	public static void main(String[] args) {
@@ -430,7 +426,7 @@ public class FoodTrackerApp {
 	 * @param s
 	 * @param l
 	 */
-	private static void printGroceryList(Storage s, GroceryList l) {
+	public static void printGroceryList(Storage s, GroceryList l) {
 		if(((System.currentTimeMillis()/1000)-(prevTime/1000))>=
 				grocGenerate*millisecondsInDay/1000) {
 			String printVal = "It's time to go shopping. Here is "
@@ -456,7 +452,7 @@ public class FoodTrackerApp {
 	 * @param s
 	 * @param t
 	 */
-	private static void printCloseToExpiring(Storage s) {
+	public static void printCloseToExpiring(Storage s) {
 		String value = "Foods about to expire:\n";
 		for(Food foods : s.getFridge()) {
 			if(foods.aboutToExpire(warningTime)){
