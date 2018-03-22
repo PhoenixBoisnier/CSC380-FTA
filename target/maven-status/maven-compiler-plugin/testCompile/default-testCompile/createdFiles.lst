@@ -1,6 +1,7 @@
+test/java/com/FoodTracker/FoodTrackerAppTest.class
+test/java/com/FoodTracker/JUnitTestFormat.class
+test/java/com/FoodTracker/LeftoverTest.class
 test/java/com/FoodTracker/FoodTest.class
 test/java/com/FoodTracker/AppTest.class
 test/java/com/FoodTracker/GroceryListTest.class
-test/java/com/FoodTracker/FoodTrackerAppTest.class
-test/java/com/FoodTracker/JUnitTestFormat.class
 test/java/com/FoodTracker/StorageTest.class
