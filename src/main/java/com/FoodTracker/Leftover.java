@@ -24,12 +24,12 @@ public class Leftover extends Food{
 	}
 	
 	/**
-	 * Private method used to determine the expiration duration of frozen 
+	 * Public method used to determine the expiration duration of frozen 
 	 * leftovers.
 	 * @param frozen
 	 * @return
 	 */
-	private static int ifFrozen(boolean frozen) {
+	public static int ifFrozen(boolean frozen) {
 		if(frozen) {
 			return duration;
 		}
