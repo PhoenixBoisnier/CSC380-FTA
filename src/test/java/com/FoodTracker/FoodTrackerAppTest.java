@@ -48,6 +48,19 @@ public class FoodTrackerAppTest {
 		
 	}
 	
+	@Test public void findItTest() {
+		
+		String findItTestInput = "fridge\napple\n";
+		Scanner scone = FoodTrackerAppTest.makeInput(findItTestInput);
+		String input = "";
+		
+		/*TODO make string equal to this*/testApp.findIt(scone, input, food);
+		
+		/*assertTrue(String above.equals("apple"+" was found in the "+
+				"fridge"+"."));
+				*/
+	}
+	
 	public static Scanner makeInput(String userInput) {
 		
 		String testText = userInput;
@@ -57,4 +70,5 @@ public class FoodTrackerAppTest {
 		return scone;
 		
 	}
+	
 }
