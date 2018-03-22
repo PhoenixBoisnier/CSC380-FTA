@@ -9,7 +9,7 @@ package main.java.com.FoodTracker;
  */
 public class Leftover extends Food{
 
-	public static boolean isLeftover = false;
+	public static boolean isLeftover = true;
 	private static int duration = 30;
 	
 	/**
