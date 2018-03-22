@@ -53,6 +53,9 @@ public class FoodTrackerApp {
 				+ "Type any of these commands and press enter when ready.\n"
 				+ "add: Asks for info about food to be stored."
 				+ "exit: Saves data and exits the program.\n"
+				//TODO expired: lists all expired foods then asks the user\n
+				//if they would like them added to the grocery list and \n
+				//removed from their locations, only removed, or left alone.
 				+ "find: Asks for a food to search for.\n"
 				+ "h: Displays a list of commands.\n"
 				+ "help: Displays a list of commands.\n"
@@ -143,6 +146,9 @@ public class FoodTrackerApp {
 				/*
 				done - "add: asks for info about food to be stored."
 				done - "exit: saves data and exits the program.\n"
+				+ "expired: lists all expired foods then asks the user\n"
+				+ "if they would like them added to the grocery list and \n"
+				+ "removed from their locations, only removed, or left alone."
 				done - "find: asks for a food to search for.\n"
 				done - "h: displays a list of commands.\n"
 				done - "help: displays a list of commands.\n"
@@ -513,6 +519,16 @@ public class FoodTrackerApp {
 	public static void removeFood(Storage food, Food f, GroceryList l, Mode m) {
 		food.remove(f,m,l);
 		l.manualAdd(f);
+	}
+	
+	/**
+	 * A method to add all the expired foods from the storage and place them into
+	 * the grocery list.
+	 * @param food
+	 * @param l
+	 */
+	public static void addToListExpired(Storage food, GroceryList l) {
+		//TODO
 	}
 
 }
