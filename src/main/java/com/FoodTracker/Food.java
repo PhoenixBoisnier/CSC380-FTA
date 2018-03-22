@@ -1,8 +1,5 @@
 package main.java.com.FoodTracker;
 
-import java.io.ByteArrayInputStream;
-import java.util.Scanner;
-
 /**
  * The main item in the program, stores all the info about the food items.
  * This class tracks food based on its name, cost, days to expiration, and 
@@ -54,6 +51,7 @@ public class Food {
 		this.time = time;
 		this.expiration = exp;
 	}
+	
 	
 	/**
 	 * Special method used by the parser.
