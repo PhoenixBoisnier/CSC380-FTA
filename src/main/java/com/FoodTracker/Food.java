@@ -1,4 +1,8 @@
 package main.java.com.FoodTracker;
+
+import java.io.ByteArrayInputStream;
+import java.util.Scanner;
+
 /**
  * The main item in the program, stores all the info about the food items.
  * This class tracks food based on its name, cost, days to expiration, and 
@@ -59,12 +63,14 @@ public class Food {
 		String retVal = "";
 		retVal+=name+"\n";
 		retVal+=cost+"\n";
-		retVal+=daysToExpire+"\n";
-		retVal+=time+"\n";
-		retVal+=expiration+"\n";
+		retVal+=privateDeets();
 		return retVal;
 	}
 	
+	/**
+	 * Special method used by a method used by the parser.
+	 * @return
+	 */
 	public String privateDeets() {
 		String retVal = "";
 		retVal+=daysToExpire+"\n";
