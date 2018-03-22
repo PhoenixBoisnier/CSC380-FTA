@@ -11,8 +11,10 @@ public class FoodTrackerApp {
 	static int exists = 0;
 	
 	/* Overall to-do list
-	 * TODO:	make test class for FoodTrackerApp
-	 * 			put method tests into separate test methods
+	 * TODO:	finish test class for FoodTrackerApp
+	 * 			add tests for leftovers
+	 * 			finish unimplemented commands
+	 * 			fix parser
 	 */
 	
 	/*TODO check this throughout 
@@ -59,6 +61,7 @@ public class FoodTrackerApp {
 				+ "find: Asks for a food to search for.\n"
 				+ "h: Displays a list of commands.\n"
 				+ "help: Displays a list of commands.\n"
+				//TODO + "leftover: adds a leftover to the fridge or freezer.\n"
 				+ "list: Prints the grocery list, regardless of status.\n"
 				+ "look: Asks for a food to search for.\n"
 				+ "quit: Saves data and quits the program.\n"
@@ -130,6 +133,7 @@ public class FoodTrackerApp {
 				}
 				System.out.println("\nAwesome! Your grocery list will be "
 						+ "provided every "+grocGenerate+" days.");
+				//TODO add leftover freezer duration to settings
 				//TODO add more setup as needed.
 				System.out.println("Alright, that looks like everything for"
 						+ " now. Remember to change these setting as needed.");
@@ -152,6 +156,7 @@ public class FoodTrackerApp {
 				done - "find: asks for a food to search for.\n"
 				done - "h: displays a list of commands.\n"
 				done - "help: displays a list of commands.\n"
+				+ "leftover: adds a leftover to the fridge or freezer.\n"
 				+ "list: Prints the grocery list, regardless of status.\n"
 				done - "look: asks for a food to search for.\n"
 				done - "quit: saves data and quits the program.\n"
@@ -529,6 +534,16 @@ public class FoodTrackerApp {
 	 */
 	public static void addToListExpired(Storage food, GroceryList l) {
 		//TODO
+	}
+	
+	/**
+	 * Calls storage's addLeftover method.
+	 * @param scone
+	 * @param food
+	 */
+	public static void addLeftovers(Scanner scone, Storage food) {
+		//TODO add this command to switch case
+		food.addLeftover(scone);
 	}
 
 }

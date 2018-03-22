@@ -56,4 +56,7 @@ public class StorageTest {
 		  assertTrue(tester.getPantry().size()==0);
 		  
 	  }
+	  
+	  //TODO addLeftoverTest
+	  //TODO removeTest for leftover removal
 	}

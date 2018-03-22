@@ -1,5 +1,6 @@
 package main.java.com.FoodTracker;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * This class is the main storage location for the bulk of the app.
@@ -49,36 +50,88 @@ public class Storage {
 	 * @param m
 	 * @param l
 	 */
+	@SuppressWarnings("static-access")
 	public void remove(Food f, Mode m, GroceryList l) {
-		switch(m) {
-		case FREEZER:{
-			for(int i = 0; i<freezer.size(); i++) {
-				if(freezer.get(i).getName().equals(f.getName())) {
-					l.manualAdd(freezer.remove(i));
-					break;
+		//If the food is a leftover, it will not be added to the grocery list.
+		if(f.isLeftover) {
+			if(m==Mode.FREEZER) {
+				for(int i = 0; i<freezer.size(); i++) {
+					if(freezer.get(i).getName().equals(f.getName())) {
+						freezer.remove(i);
+						System.out.println(f.getName()+" was removed.");
+						break;
+					}
 				}
 			}
-			break;
+			else {
+				for(int i = 0; i<fridge.size(); i++) {
+					if(fridge.get(i).getName().equals(f.getName())) {
+						fridge.remove(i);
+						System.out.println(f.getName()+" was removed.");
+						break;
+					}
+				}
+			}
 		}
-		case PANTRY:{
-			for(int i = 0; i<pantry.size(); i++) {
-				if(pantry.get(i).getName().equals(f.getName())) {
-					l.manualAdd(pantry.remove(i));
+		//The food is not a leftover, so upon removal, it will be added to 
+		//the grocery list.
+		else {
+			switch(m) {
+				case FREEZER:{
+					for(int i = 0; i<freezer.size(); i++) {
+						if(freezer.get(i).getName().equals(f.getName())) {
+							l.manualAdd(freezer.remove(i));
+							System.out.println(f.getName()+" was removed.");
+							break;
+						}
+					}
+					break;
+				}
+				case PANTRY:{
+					for(int i = 0; i<pantry.size(); i++) {
+						if(pantry.get(i).getName().equals(f.getName())) {
+							l.manualAdd(pantry.remove(i));
+							System.out.println(f.getName()+" was removed.");
+							break;
+						}
+					}
+					break;
+				}
+				default :{
+					for(int i = 0; i<fridge.size(); i++) {
+						if(fridge.get(i).getName().equals(f.getName())) {
+							l.manualAdd(fridge.remove(i));
+							System.out.println(f.getName()+" was removed.");
+							break;
+						}
+					}
 					break;
 				}
 			}
-			break;
-		}
-		default :{
-			for(int i = 0; i<fridge.size(); i++) {
-				if(fridge.get(i).getName().equals(f.getName())) {
-					l.manualAdd(fridge.remove(i));
-					break;
-				}
-			}
-			break;
 		}
 	}
+	
+	/**
+	 * Method used to add special leftover type of food to the storage.
+	 * @param scone]
+	 */
+	public void addLeftover(Scanner scone) {
+		System.out.println("What is the leftover?");
+		String name = scone.nextLine();
+		boolean frozen = false;
+		System.out.println("Will you be freezing this? y/n");
+		String freeze = scone.nextLine();
+		if(freeze.toUpperCase().equals("Y")) {
+			frozen = true;
+		}
+		if(frozen) {
+			freezer.add(new Leftover(name, frozen));
+			System.out.println(name+" was added to the freezer.");
+		}
+		else {
+			fridge.add(new Leftover(name, frozen));
+			System.out.println(name+" was added to the fridge.");
+		}
 	}
 	
 	/**

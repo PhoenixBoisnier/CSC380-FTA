@@ -10,6 +10,8 @@ package main.java.com.FoodTracker;
  */
 public class Food {
 	
+	public static boolean isLeftover = false;
+	
 	private String name;
 	private double cost;
 	private int daysToExpire;

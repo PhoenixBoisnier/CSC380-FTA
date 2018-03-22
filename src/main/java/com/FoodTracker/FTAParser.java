@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+//TODO change format and methods for leftover settings
 /**
  *
 	 * File format is as follows:
