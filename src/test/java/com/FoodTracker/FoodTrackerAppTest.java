@@ -13,19 +13,28 @@ import main.java.com.FoodTracker.FoodTrackerApp;
 import main.java.com.FoodTracker.GroceryList;
 import main.java.com.FoodTracker.Storage;
 
-@SuppressWarnings("static-access")
 public class FoodTrackerAppTest {
 	
-	FoodTrackerApp testApp = new FoodTrackerApp();
 	Storage food = new Storage();
 	GroceryList list = new GroceryList();
+	FoodTrackerApp testApp = new FoodTrackerApp(list, food);
 	//TODO determine what "user" input will be 
+	
+	public Scanner makeInput(String userInput) {
+		
+		String testText = userInput;
+		byte byteStream[] = testText.getBytes();
+		ByteArrayInputStream input1 = new ByteArrayInputStream(byteStream); 
+		Scanner scone = new Scanner(input1);
+		return scone;
+		
+	}
 	
 	
 	@Test public void makeFoodTest() {
 		
 		String makeFoodTestInput = "apple\n2.0\n30\ny\n";
-		Scanner scone = FoodTrackerAppTest.makeInput(makeFoodTestInput);
+		Scanner scone = makeInput(makeFoodTestInput);
 		
 		try {
 			assertTrue(testApp.makeFood(scone).getName().equals("apple"));
@@ -38,37 +47,58 @@ public class FoodTrackerAppTest {
 	@Test public void addItTest() {
 		
 		String addItTestInput = "fridge\napple\n2.0\n30\ny\n";
-		Scanner scone = FoodTrackerAppTest.makeInput(addItTestInput);
+		Scanner scone = makeInput(addItTestInput);
 		String input = "";
+		testApp.addIt(scone, input);
 		
-		testApp.addIt(scone, input, food, list);
 		assertTrue(food.getFridge().size()==1);
 		assertFalse(food.getFreezer().size()==1);
 		assertFalse(food.getPantry().size()==1);
 		
 	}
 	
-	@Test public void findItTest() {
+	@Test public void findItTest1() {
+		
+		String addItTestInput = "fridge\napple\n2.0\n30\ny\n";
+		Scanner scone = makeInput(addItTestInput);
+		String input = "";
+		testApp.addIt(scone, input);
 		
 		String findItTestInput = "fridge\napple\n";
-		Scanner scone = FoodTrackerAppTest.makeInput(findItTestInput);
+		scone = makeInput(findItTestInput);
+		input = "";
+		String findItResults = testApp.findIt(scone, input);
+		assertTrue(findItResults.equals("apple was found in the fridge."));
+				
+	}
+	
+	@Test public void findItTest2() {
+		
+		String addItTestInput = "fridge\napple\n2.0\n30\ny\n";
+		Scanner scone = makeInput(addItTestInput);
 		String input = "";
+		testApp.addIt(scone, input);
 		
-		/*TODO make string equal to this*/testApp.findIt(scone, input, food);
-		
-		/*assertTrue(String above.equals("apple"+" was found in the "+
-				"fridge"+"."));
-				*/
-	}
-	
-	public static Scanner makeInput(String userInput) {
-		
-		String testText = userInput;
-		byte byteStream[] = testText.getBytes();
-		ByteArrayInputStream input1 = new ByteArrayInputStream(byteStream); 
-		Scanner scone = new Scanner(input1);
-		return scone;
+		String findItTestInput = "freezer\napple\n";
+		scone = makeInput(findItTestInput);
+		input = "";
+		String foundApple = "apple was found in the fridge.";
+		assertFalse(testApp.findIt(scone, input).equals(foundApple));
 		
 	}
 	
+	@Test public void findItTest3() {
+		
+		String addItTestInput = "fridge\napple\n2.0\n30\ny\n";
+		Scanner scone = makeInput(addItTestInput);
+		String input = "";
+		testApp.addIt(scone, input);
+		
+		String findItTestInput = "q\napple\n";
+		scone = makeInput(findItTestInput);
+		input = "";
+		String foundApple = "apple was found.";
+		assertTrue(testApp.findIt(scone, input).equals(foundApple));
+		
+	}
 }

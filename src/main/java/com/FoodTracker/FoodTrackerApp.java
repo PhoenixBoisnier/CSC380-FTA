@@ -11,7 +11,6 @@ public class FoodTrackerApp {
 	private Storage food;
 	private GroceryList list;
 	private FTAParser p;
-	private Scanner scone;
 	//TODO make command list
 	private String commandList = ""
 			+ "Type any of these commands and press enter when ready.\n"
@@ -64,16 +63,14 @@ public class FoodTrackerApp {
 	 *
 	 */
 	
-	public FoodTrackerApp(FTAParser p, GroceryList list, Storage food, 
-			Scanner scone) {
+	public FoodTrackerApp(GroceryList list, Storage food) {
 		
 		this.food = food;
-		this.p = p;
 		this.list = list;
-		exists = p.getExists();
-		warningTime = p.getDaysWarning();
-		grocGenerate = p.getListGenerate();
-		this.scone = scone;
+//		this.p = new FTAParser(list, food);
+//		exists = p.getExists();
+//		warningTime = p.getDaysWarning();
+//		grocGenerate = p.getListGenerate();
 		
 	}
 	
@@ -99,13 +96,13 @@ public class FoodTrackerApp {
 	public void addIt(Scanner scone, String input) {
 		System.out.println("Where will you be storing this food?");
 		System.out.println("Default location is the fridge.");
-		input = scone.next();
+		input = scone.nextLine();
 		switch (input.toUpperCase()) {
 			case "FREEZER" :{
 				try {
 					food.AddFood(makeFood(scone), Mode.FREEZER, list);
 				} catch (AddFoodException e) {
-					e.printStackTrace();
+					System.out.println("Food addition aborted.");
 				}
 				break;
 			}
@@ -113,7 +110,7 @@ public class FoodTrackerApp {
 				try {
 					food.AddFood(makeFood(scone), Mode.PANTRY, list);
 				} catch (AddFoodException e) {
-					e.printStackTrace();
+					System.out.println("Food addition aborted.");
 				}
 				break;
 			}
@@ -121,7 +118,7 @@ public class FoodTrackerApp {
 				try {
 					food.AddFood(makeFood(scone), Mode.FRIDGE, list);
 				} catch (AddFoodException e) {
-					e.printStackTrace();
+					System.out.println("Food addition aborted.");
 				}
 			}
 		}
@@ -169,15 +166,16 @@ public class FoodTrackerApp {
 	
 	/**
 	 * This method searches through the storage location specified, or all
-	 * if the location specified does not exist. If found, it will output
+	 * if the location specified does not exist. If found, it will return
 	 * the location it was found in if it matches the specified location, 
 	 * otherwise will only specify that it was found. If it is not found,
 	 * the user will be notified.
 	 * @param scone
 	 * @param input
-	 * @param food
+	 * @return
 	 */
 	public String findIt(Scanner scone, String input) {
+		String retVal = "";
 		System.out.println("Where would you like to search?");
 		String modeInput = scone.nextLine();
 		System.out.println("What would you like to search for?");
@@ -193,11 +191,10 @@ public class FoodTrackerApp {
 					}
 				}
 				if(present) {
-					System.out.println(input+" was found in the "+
-							modeInput+".");
+					retVal += input+" was found in the "+modeInput+".";
 				}
 				else {
-					System.out.println(input+" was not found.");
+					retVal += input+" was not found.";
 				}
 				break;
 			}
@@ -210,11 +207,10 @@ public class FoodTrackerApp {
 					}
 				}
 				if(present) {
-					System.out.println(input+" was found in the "+
-							modeInput+".");
+					retVal += input+" was found in the "+modeInput+".";
 				}
 				else {
-					System.out.println(input+" was not found.");
+					retVal += input+" was not found.";
 				}
 				break;
 			}
@@ -227,16 +223,16 @@ public class FoodTrackerApp {
 					}
 				}
 				if(present) {
-					System.out.println(input+" was found in the "+
-							modeInput+".");
+					retVal += input+" was found in the "+modeInput+".";
 				}
 				else {
-					System.out.println(input+" was not found.");
+					retVal += input+" was not found.";
 				}
 				break;
 			}
 			default :{
-				System.out.println("Location not found. Searching entire storage.");
+				System.out.println("Location not spcified. "
+						+ "Searching entire storage.");
 				for(int i = 0; i<food.getPantry().size(); i++) {
 					if(food.getPantry().get(i).getName().toUpperCase().
 							equals(input.toUpperCase())) {
@@ -259,14 +255,15 @@ public class FoodTrackerApp {
 					}
 				}
 				if(present) {
-					System.out.println(input+" was found.");
+					retVal += input+" was found.";
 				}
 				else {
-					System.out.println(input+" was not found.");
+					retVal += input+" was not found.";
 				}
 				break;
 			}
 		}
+		return retVal;
 	}
 	
 	/**
@@ -275,34 +272,37 @@ public class FoodTrackerApp {
 	 * @param s
 	 * @param l
 	 * @param t
+	 * @return
 	 */
 	public String printUpdates(long t) {
 		System.out.println();
 		System.out.println("Caution; these foods are close to "
 				+ "expiring: ");
-		return printCloseToExpiring()+"\n"+printGroceryList();
+		if(((System.currentTimeMillis()/1000)-(prevTime/1000))>=
+				grocGenerate*millisecondsInDay/1000) {
+			return printCloseToExpiring()+"\n"+printGroceryList();
+		}
+		else return printCloseToExpiring();
+		
 	}
 	
 	/**
 	 * Will print the grocery list if the list is due to be generated.
 	 * @param s
 	 * @param l
+	 * @return
 	 */
 	public String printGroceryList() {
-		if(((System.currentTimeMillis()/1000)-(prevTime/1000))>=
-				grocGenerate*millisecondsInDay/1000) {
-			String printVal = "It's time to go shopping. Here is "
-					+ "your grocery list:\n";
-			System.out.println();
-			list.checkInventory(food.getFreezer());
-			list.checkInventory(food.getFridge());
-			list.checkInventory(food.getPantry());
-			if(list.toString().equals("")) {
-				System.out.println("There's nothing on your shopping list.\n");
-			}
-			else System.out.println(printVal+list);
-			System.out.println();
+		String printVal = "It's time to go shopping. Here is "
+				+ "your grocery list:\n";
+		System.out.println();
+		list.checkInventory(food.getFreezer());
+		list.checkInventory(food.getFridge());
+		list.checkInventory(food.getPantry());
+		if(list.toString().equals("")) {
+			return printVal+="There's nothing on your shopping list.\n";
 		}
+		else return printVal+list.toString();
 	}
 	
 	/**
@@ -313,6 +313,7 @@ public class FoodTrackerApp {
 	 * printed for the user to see.
 	 * @param s
 	 * @param t
+	 * @return
 	 */
 	public String printCloseToExpiring() {
 		String value = "Foods about to expire:\n";
@@ -334,7 +335,7 @@ public class FoodTrackerApp {
 		if(value.equals("Foods about to expire:\n")) {
 			value = "No foods are close to expiring.";
 		}
-		System.out.println(value); 
+		return value; 
 	}
 	
 	/**
@@ -398,9 +399,12 @@ public class FoodTrackerApp {
 	 * Finds leftovers in the storage location.
 	 * @param scone
 	 * @param food
+	 * @return
 	 */
 	public String findLeftovers(Scanner scone) {
+		String retVal = "These are the leftovers present:\n";
 		//TODO
+		return retVal;
 	}
 	
 	/**
