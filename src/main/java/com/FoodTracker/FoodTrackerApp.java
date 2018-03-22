@@ -284,11 +284,11 @@ public class FoodTrackerApp {
 	 */
 	public static Food makeFood(Scanner scone) throws AddFoodException {
 		System.out.println("What is this food called?");
-		String foodName = scone.next();
+		String foodName = scone.nextLine();
 		System.out.println("How much did this food cost?");
 		double foodCost = 0.0;
 		try {
-			foodCost = Double.parseDouble(scone.next());
+			foodCost = Double.parseDouble(scone.nextLine());
 		}
 		catch (NumberFormatException e) {
 			System.out.println("Invalid input, food's cost is set to 0.");
@@ -297,7 +297,7 @@ public class FoodTrackerApp {
 		int foodExpr = -1;
 		while (foodExpr < 0) {
 			try {
-				foodExpr = Integer.parseInt(scone.next());
+				foodExpr = Integer.parseInt(scone.nextLine());
 			}
 			catch (NumberFormatException e) {
 				System.out.println("Not a valid input. Expiration is a number"
@@ -306,7 +306,7 @@ public class FoodTrackerApp {
 		}
 		System.out.println("Adding food "+foodName+" costing "+foodCost+
 				" expriring in "+foodExpr+" days. \nDoes this look correct? y/n");
-		String correct = scone.next();
+		String correct = scone.nextLine();
 		if(correct.toUpperCase().equals("Y")) {
 			return new Food(foodName, foodCost, foodExpr);
 		}
@@ -552,7 +552,7 @@ public class FoodTrackerApp {
 	 * @param food
 	 */
 	public static void findLeftovers(Scanner scone, Storage food) {
-		
+		//TODO
 	}
 
 }
