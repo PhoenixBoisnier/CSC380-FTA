@@ -545,5 +545,14 @@ public class FoodTrackerApp {
 		//TODO add this command to switch case
 		food.addLeftover(scone);
 	}
+	
+	/**
+	 * Finds leftovers in the storage location.
+	 * @param scone
+	 * @param food
+	 */
+	public static void findLeftovers(Scanner scone, Storage food) {
+		
+	}
 
 }
