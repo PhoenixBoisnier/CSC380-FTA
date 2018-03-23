@@ -74,5 +74,19 @@ public class StorageTest {
 		  assertTrue(leftoverTest.getName().equals("chicken soup"));
 		  assertTrue(leftoverTest.isLeftover());
 	  }
-	  //TODO removeTest for leftover removal
+	  
+	  @Test public void removeLeftoverTest() {
+		  
+		  String testText = "chicken soup\nn\n";
+		  byte byteStream[] = testText.getBytes();
+		  ByteArrayInputStream input1 = new ByteArrayInputStream(byteStream); 
+		  Scanner scone = new Scanner(input1);
+		  
+		  tester.addLeftover(scone);
+		  
+		  tester.remove(tester.getFridge().get(0), Mode.FRIDGE, testList);
+		  assertFalse(tester.getFridge().size()==1);
+		  assertTrue(testList.getSize()==0);
+		  
+	  }
 	}
