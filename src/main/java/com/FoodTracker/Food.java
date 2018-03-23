@@ -11,8 +11,6 @@ package main.java.com.FoodTracker;
  */
 public class Food {
 	
-	public static boolean isLeftover = false;
-	
 	private String name;
 	private double cost;
 	private int daysToExpire;
@@ -119,6 +117,10 @@ public class Food {
 			return true;
 		}
 		else return false;
+	}
+	
+	public boolean isLeftover() {
+		return false;
 	}
 
 }

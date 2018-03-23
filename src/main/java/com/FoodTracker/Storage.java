@@ -50,10 +50,9 @@ public class Storage {
 	 * @param m
 	 * @param l
 	 */
-	@SuppressWarnings("static-access")
 	public void remove(Food f, Mode m, GroceryList l) {
 		//If the food is a leftover, it will not be added to the grocery list.
-		if(f.isLeftover) {
+		if(f.isLeftover()) {
 			if(m==Mode.FREEZER) {
 				for(int i = 0; i<freezer.size(); i++) {
 					if(freezer.get(i).getName().equals(f.getName())) {

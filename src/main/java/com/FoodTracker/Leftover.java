@@ -9,7 +9,6 @@ package main.java.com.FoodTracker;
  */
 public class Leftover extends Food{
 
-	public static boolean isLeftover = true;
 	private static int duration = 30;
 	
 	/**
@@ -43,6 +42,10 @@ public class Leftover extends Food{
 	 */
 	public static void setFrozenDuration(int duration) {
 		Leftover.duration = duration;
+	}
+	
+	public boolean isLeftover() {
+		return true;
 	}
 
 }

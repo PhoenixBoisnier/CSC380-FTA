@@ -18,7 +18,6 @@ public class FoodTrackerAppTest {
 	Storage food = new Storage();
 	GroceryList list = new GroceryList();
 	FoodTrackerApp testApp = new FoodTrackerApp(list, food);
-	//TODO determine what "user" input will be 
 	
 	public Scanner makeInput(String userInput) {
 		
@@ -101,4 +100,30 @@ public class FoodTrackerAppTest {
 		assertTrue(testApp.findIt(scone, input).equals(foundApple));
 		
 	}
+	
+	@Test public void removeTest() {
+		
+		String addItTestInput = "fridge\napple\n2.0\n30\ny\n";
+		Scanner scone = makeInput(addItTestInput);
+		String input = "";
+		testApp.addIt(scone, input);
+		
+		String removeItInput = "fridge\napple\n";
+		scone = makeInput(removeItInput);
+		input = "";
+		testApp.removeFood(scone);
+		
+		assertTrue(food.getFridge().size()==0);
+		assertTrue(list.getSize()==1);
+		
+	}
+	
+	//TODO findLeftoversTest
+	//TODO addLeftoversTest
+	//TODO addToListExpiredTest
+	//TODO expiredFoodsTest
+	//TODO printCloseToExpiringTest
+	//TODO printGroceryListTest
+	//TODO printUpdatesTest
+	//TODO exitTest
 }

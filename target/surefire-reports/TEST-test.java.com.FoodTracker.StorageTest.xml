@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test.java.com.FoodTracker.StorageTest" time="0.003" tests="3" errors="0" skipped="0" failures="0">
+<testsuite name="test.java.com.FoodTracker.StorageTest" time="0.004" tests="4" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64"/>
@@ -60,6 +60,7 @@
     <property name="sun.cpu.isalist" value=""/>
   </properties>
   <testcase name="addFoodTest" classname="test.java.com.FoodTracker.StorageTest" time="0.001"/>
-  <testcase name="removeToGrocListTest" classname="test.java.com.FoodTracker.StorageTest" time="0.001"/>
+  <testcase name="removeToGrocListTest" classname="test.java.com.FoodTracker.StorageTest" time="0"/>
+  <testcase name="addLeftoverTest" classname="test.java.com.FoodTracker.StorageTest" time="0.002"/>
   <testcase name="toStringTest" classname="test.java.com.FoodTracker.StorageTest" time="0.001"/>
 </testsuite>

@@ -16,26 +16,25 @@ public class FoodTrackerApp {
 			+ "Type any of these commands and press enter when ready.\n"
 			+ "add: Asks for info about food to be stored."
 			+ "exit: Saves data and exits the program.\n"
-			//TODO expired: lists all expired foods then asks the user\n
-			//if they would like them added to the grocery list and \n
-			//removed from their locations, only removed, or left alone.
+			+ "expired: lists all expired foods then asks the user\n"
+			+ "if they would like them added to the grocery list and \n"
+			+ "removed from their locations, only removed, or left alone."
 			+ "find: Asks for a food to search for.\n"
 			+ "h: Displays a list of commands.\n"
 			+ "help: Displays a list of commands.\n"
-			//TODO + "leftover: adds a leftover to the fridge or freezer.\n"
+			+ "leftover: adds a leftover to the fridge or freezer or\n"
+			+ "checks for leftovers."
 			+ "list: Prints the grocery list, regardless of status.\n"
 			+ "look: Asks for a food to search for.\n"
 			+ "quit: Saves data and quits the program.\n"
-			+ "remove: Removes a food from the invetory.\n"
+			+ "remove: Removes a food from the inventory.\n"
 			+ "search: Asks for a food to search for.\n"
 			+ "setup: Returns to the setup.\n"
-			+ "warnings: Prints the information on the foods about to"
-			+ "\nexpire, if any, as well as the grocery list, if ready.\n";
+			+ "warnings: Prints the information on the foods about to\n"
+			+ "expire, if any, as well as the grocery list, if ready.\n";
 	
 	/* Overall to-do list
-	 * TODO:	rework foodTrackerApp to return strings for all methods that print
-	 * 			finish test class for FoodTrackerApp
-	 * 			add tests for leftovers
+	 * TODO:	finish test class for FoodTrackerApp
 	 * 			finish unimplemented commands
 	 * 			fix parser
 	 */
@@ -373,17 +372,95 @@ public class FoodTrackerApp {
 	 * @param l
 	 * @param m
 	 */
-	public void removeFood(Storage food, Food f, GroceryList l, Mode m) {
-		food.remove(f,m,l);
-		l.manualAdd(f);
+	public void removeFood(Scanner scone) {
+		System.out.println("Where is the food being removed from?");
+		String mode = scone.nextLine();
+		System.out.println("What is the food being removed?");
+		String foodName = scone.nextLine();
+		Mode m;
+		switch (mode.toUpperCase()) {
+			case "FREEZER" :{
+				m = Mode.FREEZER;
+				break;
+			}
+			case "PANTRY" :{
+				m = Mode.PANTRY;
+				break;
+			}
+			default :{
+				m = Mode.FRIDGE;
+				break;
+			}
+		}
+		Food f = new Food(foodName, 0.0, 0);
+		food.remove(f,m,list);
 	}
 	
 	/**
 	 * A method to add all the expired foods from the storage and place them into
-	 * the grocery list.\
+	 * the grocery list.
 	 */
-	public void addToListExpired() {
-		//TODO
+	public String addToListExpired(Scanner scone) {
+		System.out.println("What would you like to do with the expired food?");
+		System.out.println("1 - Remove expired foods and add to grocery list.");
+		System.out.println("2 - Remove expired foods and do not add to list.");
+		System.out.println("3 - Do nothing.");
+		String input = scone.nextLine();
+		String retVal = "No action performed.";
+		switch (input) {
+			case "1" :{
+				retVal = "Added expired foods to grocery list.";
+				retVal+= "\nExpired foods removed from storage.";
+				for(int i = 0; i<food.getFreezer().size(); i++) {
+					if(food.getFreezer().get(i).isExpired()) {
+						food.remove(food.getFreezer().get(i),
+								Mode.FREEZER, list);
+						i--;
+					}
+				}
+				for(int i = 0; i<food.getFridge().size(); i++) {
+					if(food.getFridge().get(i).isExpired()) {
+						food.remove(food.getFridge().get(i),
+								Mode.FRIDGE, list);
+						i--;
+					}
+				}
+				for(int i = 0; i<food.getPantry().size(); i++) {
+					if(food.getPantry().get(i).isExpired()) {
+						food.remove(food.getPantry().get(i),
+								Mode.PANTRY, list);
+						i--;
+					}
+				}
+				break;
+			}
+			case "2" :{
+				retVal = "Expired foods only removed from storage.";
+				for(int i = 0; i<food.getFreezer().size(); i++) {
+					if(food.getFreezer().get(i).isExpired()) {
+						food.getFreezer().remove(i);
+						i--;
+					}
+				}
+				for(int i = 0; i<food.getFridge().size(); i++) {
+					if(food.getFridge().get(i).isExpired()) {
+						food.getFridge().remove(i);
+						i--;
+					}
+				}
+				for(int i = 0; i<food.getPantry().size(); i++) {
+					if(food.getPantry().get(i).isExpired()) {
+						food.getPantry().remove(i);
+						i--;
+					}
+				}
+				break;
+			}
+			default :{
+				//Because people are bad at things.
+			}
+		}
+		return retVal;
 	}
 	
 	/**
@@ -391,19 +468,30 @@ public class FoodTrackerApp {
 	 * @param scone
 	 */
 	public void addLeftovers(Scanner scone) {
-		//TODO add this command to switch case
 		food.addLeftover(scone);
 	}
 	
 	/**
-	 * Finds leftovers in the storage location.
+	 * Finds leftovers in the storage.
 	 * @param scone
 	 * @param food
 	 * @return
 	 */
-	public String findLeftovers(Scanner scone) {
+	public String findLeftovers() {
 		String retVal = "These are the leftovers present:\n";
-		//TODO
+		for(int i = 0; i<food.getFridge().size(); i++) {
+			if(food.getFridge().get(i).isLeftover()) {
+				retVal+="\t"+food.getFridge().get(i).getName()+" in fridge";
+			}
+		}
+		for(int i = 0; i<food.getFreezer().size(); i++) {
+			if(food.getFreezer().get(i).isLeftover()) {
+				retVal+="\t"+food.getFreezer().get(i).getName()+" in freezer";
+			}
+		}
+		if(retVal.equals("These are the leftovers present:\n")) {
+			retVal+="\tNo leftovers are present";
+		}
 		return retVal;
 	}
 	

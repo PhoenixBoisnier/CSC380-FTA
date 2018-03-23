@@ -15,8 +15,8 @@ public class LeftoverTest {
 	Leftover flTest = new Leftover("bacon", frozen);
 	
 	@Test public void isLeftoverTest() {
-		assertTrue(lTest.isLeftover);
-		assertTrue(flTest.isLeftover);
+		assertTrue(lTest.isLeftover());
+		assertTrue(flTest.isLeftover());
 	}
 	
 	@Test public void durationTest() {

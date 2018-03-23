@@ -45,6 +45,7 @@ public class FTAParser {
 	private int daysWarning;
 	private int listGenerate;
 	private int exists = 0;
+	//TODO fix the path
 	private final String path = System.getProperty("user.home")+"/FTApp";
 	File input = new File(path+"/save.txt");
 	Scanner scone = null;

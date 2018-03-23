@@ -92,21 +92,22 @@ public class FTA_CmdRunner {
 				/*
 				done - "add: asks for info about food to be stored."
 				done - "exit: saves data and exits the program.\n"
-				+ "expired: lists all expired foods then asks the user\n"
-				+ "if they would like them added to the grocery list and \n"
-				+ "removed from their locations, only removed, or left alone."
+				done - "expired: lists all expired foods then asks the user\n"
+				done - "if they would like them added to the grocery list and \n"
+				done - "removed from their locations, only removed, or left alone."
 				done - "find: asks for a food to search for.\n"
 				done - "h: displays a list of commands.\n"
 				done - "help: displays a list of commands.\n"
-				+ "leftover: adds a leftover to the fridge or freezer.\n"
-				+ "list: Prints the grocery list, regardless of status.\n"
+				done - "leftover: adds a leftover to the fridge or freezer or\n"
+				done - "checks for leftovers."
+				done - "list: Prints the grocery list, regardless of status.\n"
 				done - "look: asks for a food to search for.\n"
 				done - "quit: saves data and quits the program.\n"
-				+ "remove: removes a food from the invetory.\n"
+				done - "remove: removes a food from the inventory.\n"
 				done - "search: asks for a food to search for.\n"
 				done - "setup: returns to the setup.\n"
-				+ "warnings: prints the information on the foods about to"
-				+ "\nexpire, if any, as well as the grocery list, if ready.\n";
+				done - "warnings: prints the information on the foods about to\n"
+				done - "expire, if any, as well as the grocery list, if ready.\n";
 				 */
 				System.out.println("What would you like to do?");
 				input = scone.nextLine();
@@ -148,6 +149,34 @@ public class FTA_CmdRunner {
 					}
 					case "ADD" :{
 						app.addIt(scone, input);
+						break;
+					}
+					case "LEFTOVER" :{
+						System.out.println("Would you like to add or find leftovers?");
+						input = scone.nextLine();
+						if(input.toUpperCase().equals("ADD")) {
+							app.addLeftovers(scone);
+						}
+						else {
+							System.out.println(app.findLeftovers());
+						}
+						break;
+					}
+					case "LIST" :{
+						System.out.println(app.printGroceryList());
+						break;
+					}
+					case "REMOVE" :{
+						app.removeFood(scone);
+						break;
+					}
+					case "WARNINGS" :{
+						app.printUpdates(System.currentTimeMillis());
+						break;
+					}
+					case "EXPIRED" :{
+						System.out.println(app.expiredFoods());
+						System.out.println(app.addToListExpired(scone));
 						break;
 					}
 					default :{

@@ -2,6 +2,10 @@ package test.java.com.FoodTracker;
 
 import org.junit.*;
 import static org.junit.Assert.assertTrue;
+
+import java.io.ByteArrayInputStream;
+import java.util.Scanner;
+
 import static org.junit.Assert.assertFalse;
 import main.java.com.FoodTracker.*;
 
@@ -57,6 +61,18 @@ public class StorageTest {
 		  
 	  }
 	  
-	  //TODO addLeftoverTest
+	  @Test public void addLeftoverTest() {
+		  
+		  String testText = "chicken soup\nn\n";
+		  byte byteStream[] = testText.getBytes();
+		  ByteArrayInputStream input1 = new ByteArrayInputStream(byteStream); 
+		  Scanner scone = new Scanner(input1);
+		  
+		  tester.addLeftover(scone);
+		  assertTrue(tester.getFridge().size()==1);
+		  Food leftoverTest = tester.getFridge().get(0);
+		  assertTrue(leftoverTest.getName().equals("chicken soup"));
+		  assertTrue(leftoverTest.isLeftover());
+	  }
 	  //TODO removeTest for leftover removal
 	}
