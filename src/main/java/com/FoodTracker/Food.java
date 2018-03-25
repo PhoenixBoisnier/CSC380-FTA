@@ -34,7 +34,7 @@ public class Food {
 	}
 	
 	/**
-	 * Special constructor used by the file parser.
+	 * Special constructor used by the file parser and test classes.
 	 * @param name
 	 * @param cost
 	 * @param daysToExpire

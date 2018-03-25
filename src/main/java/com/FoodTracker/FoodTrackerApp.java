@@ -298,10 +298,7 @@ public class FoodTrackerApp {
 		list.checkInventory(food.getFreezer());
 		list.checkInventory(food.getFridge());
 		list.checkInventory(food.getPantry());
-		if(list.toString().equals("")) {
-			return printVal+="There's nothing on your shopping list.\n";
-		}
-		else return printVal+list.toString();
+		return printVal+list.toString();
 	}
 	
 	/**
