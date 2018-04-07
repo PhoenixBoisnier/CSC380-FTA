@@ -44,6 +44,7 @@ public class FTAParser {
 	private Storage store;
 	private int daysWarning;
 	private int listGenerate;
+	private int freezerTime;
 	private int exists = 0;
 	//TODO fix the path
 	private final String path = System.getProperty("user.home")+"/FTApp";
@@ -119,6 +120,10 @@ public class FTAParser {
 		return listGenerate;
 	}
 	
+	public int getFreezerTime() {
+		return freezerTime;
+	}
+	
 	/**
 	 * Returns 1 if there was a save file found.
 	 * @return
@@ -153,6 +158,7 @@ public class FTAParser {
 	 * @param s
 	 */
 	public void saveFile(GroceryList l, Storage s, int warn, int gen) {
+		//TODO write freezer time
 		File output = new File(path+"/save.txt");
 		String outputting = "Begin File";
 		try {
@@ -231,6 +237,7 @@ public class FTAParser {
 	 * @param s
 	 */
 	public void readFile(GroceryList l, Storage s) {
+		//TODO read freezerTime
 		if(scone != null) {
 			//if the file exists, there will always be 3 locations
 			//recorded to be read

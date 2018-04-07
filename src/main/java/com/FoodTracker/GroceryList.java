@@ -11,8 +11,8 @@ import java.util.HashMap;
  */
 public class GroceryList {
 	
-	ArrayList<Food> list = new ArrayList<>();
-	HashMap<String, Food> compareList = new HashMap<>();
+	private ArrayList<Food> list = new ArrayList<>();
+	private HashMap<String, Food> compareList = new HashMap<>();
 	
 	public GroceryList() {
 		
