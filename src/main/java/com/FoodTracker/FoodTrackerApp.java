@@ -1,4 +1,5 @@
 package main.java.com.FoodTracker;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class FoodTrackerApp {
@@ -6,19 +7,24 @@ public class FoodTrackerApp {
 	public final static int millisecondsInDay = 86400000;
 	private static int warningTime = 3;
 	private static int grocGenerate = 7;
+	private static int freezerTime = 30;
 	private static long prevTime;
 	private int exists = 0;
 	private Storage food;
 	private GroceryList list;
 	private FTAParser p;
+	private HashMap<String, Food> favorites = new HashMap<>();
 	//TODO make command list
+	//TODO implement leftover commands / functionality
 	private String commandList = ""
 			+ "Type any of these commands and press enter when ready.\n"
 			+ "add: Asks for info about food to be stored."
+			+ "display: asks for display type, then displays all food.\n"
 			+ "exit: Saves data and exits the program.\n"
 			+ "expired: lists all expired foods then asks the user\n"
 			+ "if they would like them added to the grocery list and \n"
 			+ "removed from their locations, only removed, or left alone."
+			+ "favorites: opens favorites command.\n"
 			+ "find: Asks for a food to search for.\n"
 			+ "h: Displays a list of commands.\n"
 			+ "help: Displays a list of commands.\n"
@@ -44,20 +50,20 @@ public class FoodTrackerApp {
 	 *10: Displays food available based on some order
 	 *10: Can add/remove food to the list---------------------------------done
 	 *10: Persistent memory
-	 *9: Command menu
+	 *9: Command menu-----------------------------------------------------done
 	 *7: Grocery list generation------------------------------------------done
 	 *7: Search-able lists------------------------------------------------done
-	 *5: Leftover storage/retrieval
+	 *5: Leftover storage/retrieval---------------------------------------done
 	 *3: Favorite foods listing
 	 *
 	 *10: User can use this program to store food in a database.----------done
 	 *2: User can see stored food based on expiration date/other info.
 	 *1: User's input is stored in categories.----------------------------done
 	 *5: User's info is stored between sessions.
-	 *3: User interacts with the program via command menu.
+	 *3: User interacts with the program via command menu.----------------done
 	 *3: User can search lists by food name/other.------------------------done
 	 *2: Program will generate shopping lists for user.-------------------done
-	 *2: User can store special food type, "leftovers."
+	 *2: User can store special food type, "leftovers."-------------------done
 	 *2: User can store and retrieve favorite foods.
 	 *
 	 */
@@ -83,6 +89,23 @@ public class FoodTrackerApp {
 		//TODO fix the parser
 		p.saveFile(list, food, warningTime, grocGenerate);
 	}
+	
+	/**
+	 * Finds and returns a food if it has been added to favorites.
+	 * @param foodName
+	 * @return
+	 * @throws FavoriteFoodException
+	 */
+	public Food findFave(String foodName) throws FavoriteFoodException {
+		if(favorites.containsKey(foodName)) {
+			return favorites.get(foodName);
+		}
+		else throw new FavoriteFoodException();
+	}
+	
+	//TODO add addFavorite method
+	
+	//TODO displayAll method, options for alphabetically, by storage, by date
 	
 	/**
 	 * This method is used to put foods into their storage locations. If no 
@@ -536,6 +559,22 @@ public class FoodTrackerApp {
 	 */
 	public String getCommandList() {
 		return commandList;
+	}
+	
+	/**
+	 * Returns the time leftover food stays good in the freezer.
+	 * @return
+	 */
+	public int getFreezerTime() {
+		return freezerTime;
+	}
+	
+	/**
+	 * Sets the time leftover food stays good in the freezer for.
+	 * @param t
+	 */
+	public void setFreezerTime(int t) {
+		freezerTime = t;
 	}
 
 }

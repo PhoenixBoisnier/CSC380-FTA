@@ -88,13 +88,17 @@ public class FTA_CmdRunner {
 			//First interaction with the user after setup
 			while(!input.equals("EXIT")&&setup==false) {
 				//TODO list each command to implement, then implement it
+				//TODO favorites command
+				//TODO displayAll command
 				//Secondary loop where input commands are given.
 				/*
 				done - "add: asks for info about food to be stored."
+					   "display: asks for display type, then displays all food.\n"
 				done - "exit: saves data and exits the program.\n"
 				done - "expired: lists all expired foods then asks the user\n"
 				done - "if they would like them added to the grocery list and \n"
 				done - "removed from their locations, only removed, or left alone."
+					   "favorites: opens favorites command.\n"
 				done - "find: asks for a food to search for.\n"
 				done - "h: displays a list of commands.\n"
 				done - "help: displays a list of commands.\n"
