@@ -28,6 +28,7 @@ import java.util.Scanner;
 	 * ---repeat above for number of items in location
 	 * -int: days before warning
 	 * -int: days to generate list
+	 * -int: days to save in freezer
 	 * end of file
 	 * .
  * This class reads and writes save files for the app.
@@ -120,6 +121,10 @@ public class FTAParser {
 		return listGenerate;
 	}
 	
+	/**
+	 * Returns the leftover freezer time.
+	 * @return
+	 */
 	public int getFreezerTime() {
 		return freezerTime;
 	}
@@ -152,13 +157,13 @@ public class FTAParser {
 	 * ---repeat above for number of items in location
 	 * -int: days before warning
 	 * -int: days to generate list
+	 * -int: days to save in freezer
 	 * end of file
 	 * 
 	 * @param l
 	 * @param s
 	 */
-	public void saveFile(GroceryList l, Storage s, int warn, int gen) {
-		//TODO write freezer time
+	public void saveFile(GroceryList l, Storage s, int warn, int gen, int frz) {
 		File output = new File(path+"/save.txt");
 		String outputting = "Begin File";
 		try {
@@ -202,6 +207,7 @@ public class FTAParser {
 			//This part writes the settings to file
 			write.write(warn+"\n");
 			write.write(gen+"\n");
+			write.write(frz+"\n");
 			
 		} catch (IOException e) {
 			System.out.println("Failed to write to save file.");
@@ -231,13 +237,13 @@ public class FTAParser {
 	 * ---repeat above for number of items in location
 	 * -int: days before warning
 	 * -int: days to generate list
+	 * -int: days to save in freezer
 	 * end of file
 	 * 
 	 * @param l
 	 * @param s
 	 */
 	public void readFile(GroceryList l, Storage s) {
-		//TODO read freezerTime
 		if(scone != null) {
 			//if the file exists, there will always be 3 locations
 			//recorded to be read
@@ -289,6 +295,7 @@ public class FTAParser {
 			//then we read in the saved settings.
 			daysWarning = Integer.parseInt(scone.nextLine());
 			listGenerate = Integer.parseInt(scone.nextLine());
+			freezerTime = Integer.parseInt(scone.nextLine());
 
 		}
 		//in the case that input file does not exist somehow

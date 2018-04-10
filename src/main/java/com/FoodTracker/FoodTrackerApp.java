@@ -14,8 +14,6 @@ public class FoodTrackerApp {
 	private GroceryList list;
 	private FTAParser p;
 	private HashMap<String, Food> favorites = new HashMap<>();
-	//TODO make command list
-	//TODO implement leftover commands / functionality
 	private String commandList = ""
 			+ "Type any of these commands and press enter when ready.\n"
 			+ "add: Asks for info about food to be stored."
@@ -40,31 +38,29 @@ public class FoodTrackerApp {
 			+ "expire, if any, as well as the grocery list, if ready.\n";
 	
 	/* Overall to-do list
-	 * TODO:	finish test class for FoodTrackerApp
-	 * 			finish unimplemented commands
-	 * 			fix parser
+	 * TODO:	fix parser
 	 */
 	
 	/*TODO check this throughout 
-	 *10: Stores food by category as well as other info, such as expiration date
-	 *10: Displays food available based on some order
+	 *10: Stores food by category-----------------------------------------done
+	 *10: Displays food available based on some order---------------------done
 	 *10: Can add/remove food to the list---------------------------------done
 	 *10: Persistent memory
 	 *9: Command menu-----------------------------------------------------done
 	 *7: Grocery list generation------------------------------------------done
 	 *7: Search-able lists------------------------------------------------done
 	 *5: Leftover storage/retrieval---------------------------------------done
-	 *3: Favorite foods listing
+	 *3: Favorite foods listing-------------------------------------------done
 	 *
 	 *10: User can use this program to store food in a database.----------done
-	 *2: User can see stored food based on expiration date/other info.
+	 *2: User can see stored food based on expiration date/other info.----done
 	 *1: User's input is stored in categories.----------------------------done
 	 *5: User's info is stored between sessions.
 	 *3: User interacts with the program via command menu.----------------done
 	 *3: User can search lists by food name/other.------------------------done
 	 *2: Program will generate shopping lists for user.-------------------done
 	 *2: User can store special food type, "leftovers."-------------------done
-	 *2: User can store and retrieve favorite foods.
+	 *2: User can store and retrieve favorite foods.----------------------done
 	 *
 	 */
 	
@@ -76,6 +72,8 @@ public class FoodTrackerApp {
 //		exists = p.getExists();
 //		warningTime = p.getDaysWarning();
 //		grocGenerate = p.getListGenerate();
+//		freezerTime = p.getFreezerTime();
+		//TODO uncomment this once it works
 		
 	}
 	
@@ -87,7 +85,7 @@ public class FoodTrackerApp {
 	 */
 	public void exit() {
 		//TODO fix the parser
-		p.saveFile(list, food, warningTime, grocGenerate);
+		p.saveFile(list, food, warningTime, grocGenerate, freezerTime);
 	}
 	
 	/**
@@ -102,10 +100,6 @@ public class FoodTrackerApp {
 		}
 		else throw new FavoriteFoodException();
 	}
-	
-	//TODO add addFavorite method
-	
-	//TODO displayAll method, options for alphabetically, by storage, by date
 	
 	/**
 	 * This method is used to put foods into their storage locations. If no 
@@ -122,7 +116,9 @@ public class FoodTrackerApp {
 		switch (input.toUpperCase()) {
 			case "FREEZER" :{
 				try {
-					food.AddFood(makeFood(scone), Mode.FREEZER, list);
+					Food f = makeFood(scone);
+					food.AddFood(f, Mode.FREEZER, list);
+					favorites.put(f.getName(), f);
 				} catch (AddFoodException e) {
 					System.out.println("Food addition aborted.");
 				}
@@ -130,7 +126,9 @@ public class FoodTrackerApp {
 			}
 			case "PANTRY" :{
 				try {
-					food.AddFood(makeFood(scone), Mode.PANTRY, list);
+					Food f = makeFood(scone);
+					food.AddFood(f, Mode.PANTRY, list);
+					favorites.put(f.getName(), f);
 				} catch (AddFoodException e) {
 					System.out.println("Food addition aborted.");
 				}
@@ -138,7 +136,9 @@ public class FoodTrackerApp {
 			}
 			default :{
 				try {
-					food.AddFood(makeFood(scone), Mode.FRIDGE, list);
+					Food f = makeFood(scone);
+					food.AddFood(f, Mode.FRIDGE, list);
+					favorites.put(f.getName(), f);
 				} catch (AddFoodException e) {
 					System.out.println("Food addition aborted.");
 				}
@@ -156,6 +156,20 @@ public class FoodTrackerApp {
 	public Food makeFood(Scanner scone) throws AddFoodException {
 		System.out.println("What is this food called?");
 		String foodName = scone.nextLine();
+		String yn = "N";
+		if(favorites.containsKey(foodName)) {
+			System.out.println("This food was added before. Would you like to use\n"
+					+ "the same information?");
+			System.out.println(favorites.get(foodName));
+			System.out.println("y/n");
+			yn = scone.nextLine();
+			if(yn.toUpperCase().equals("Y")) {
+				return favorites.get(foodName);
+			}
+		}
+		if(favorites.containsKey(foodName)) {
+			favorites.remove(foodName);
+		}
 		System.out.println("How much did this food cost?");
 		double foodCost = 0.0;
 		try {
@@ -575,6 +589,10 @@ public class FoodTrackerApp {
 	 */
 	public void setFreezerTime(int t) {
 		freezerTime = t;
+	}
+	
+	public Storage getFoods() {
+		return food;
 	}
 
 }

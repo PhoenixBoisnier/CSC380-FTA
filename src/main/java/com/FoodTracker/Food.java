@@ -9,8 +9,9 @@ package main.java.com.FoodTracker;
  * @author phoenix
  *
  */
-public class Food {
+public class Food implements Comparable<Food>{
 	
+	static boolean byName = true;
 	private String name;
 	private double cost;
 	private int daysToExpire;
@@ -119,8 +120,26 @@ public class Food {
 		else return false;
 	}
 	
+	/**
+	 * Returns if this is a leftover or not.
+	 * @return
+	 */
 	public boolean isLeftover() {
 		return false;
 	}
+	
+	/**
+	 * Compares foods based on name.
+	 */
+	public int compareTo(Food f) {
+		if(byName) {
+			return this.name.compareTo(f.name);
+		}
+		else {
+			return Long.compare(this.expiration, f.expiration);
+		}
+	}
+
+	
 
 }

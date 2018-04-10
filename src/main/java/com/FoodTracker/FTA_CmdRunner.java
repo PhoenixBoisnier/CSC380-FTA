@@ -1,5 +1,7 @@
 package main.java.com.FoodTracker;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class FTA_CmdRunner {
@@ -73,10 +75,25 @@ public class FTA_CmdRunner {
 					}
 					app.setGrocGenerate(num);
 				}
+				System.out.println("Sometimes, you put leftovers into the freezer.");
+				System.out.println("How long do you want to keep these in the freezer?");
+				System.out.println("This is a number of days.");
+				num = -1;
+				while(num<0) {
+					try {
+						num = Integer.parseInt(scone.nextLine());
+					}
+					catch(NumberFormatException e) {
+						System.out.println("That was not a valid entry.");
+						System.out.println("For now, we'll set it to 30.");
+						System.out.println("This can be changed at a later"
+								+ " time.");
+						num = 30;
+					}
+					app.setFreezerTime(num);
+				}
 				System.out.println("\nAwesome! Your grocery list will be "
 						+ "provided every "+app.getGrocGenerate()+" days.");
-				//TODO add leftover freezer duration to settings
-				//TODO add more setup as needed.
 				System.out.println("Alright, that looks like everything for"
 						+ " now. Remember to change these setting as needed.");
 				System.out.println("If at any point you need information about"
@@ -87,18 +104,15 @@ public class FTA_CmdRunner {
 			
 			//First interaction with the user after setup
 			while(!input.equals("EXIT")&&setup==false) {
-				//TODO list each command to implement, then implement it
-				//TODO favorites command
-				//TODO displayAll command
 				//Secondary loop where input commands are given.
 				/*
 				done - "add: asks for info about food to be stored."
-					   "display: asks for display type, then displays all food.\n"
+				done - "display: asks for display type, then displays all food.\n"
 				done - "exit: saves data and exits the program.\n"
 				done - "expired: lists all expired foods then asks the user\n"
 				done - "if they would like them added to the grocery list and \n"
 				done - "removed from their locations, only removed, or left alone."
-					   "favorites: opens favorites command.\n"
+				done - "favorite: asks for a food name and displays its info if found.\n"
 				done - "find: asks for a food to search for.\n"
 				done - "h: displays a list of commands.\n"
 				done - "help: displays a list of commands.\n"
@@ -182,6 +196,66 @@ public class FTA_CmdRunner {
 						System.out.println(app.expiredFoods());
 						System.out.println(app.addToListExpired(scone));
 						break;
+					}
+					case "FAVORITE" :{
+						System.out.println("Please input food name.");
+						String foodName = scone.nextLine();
+						try {
+							Food f = app.findFave(foodName);
+							System.out.println("This is the food's information.");
+							System.out.println(f);
+						}
+						catch (FavoriteFoodException e) {
+							System.out.println("This food was not found.");
+						}
+						break;
+					}
+					case "DISPLAY" :{
+						System.out.println("Would you like to display food by:(1,2,3)");
+						System.out.println("\t1: Storage");
+						System.out.println("\t2: Alphabetically");
+						System.out.println("\t3: Expiration");
+						int num = -1;
+						ArrayList<Food> allFoods = new ArrayList<>();
+						for(int i = 0; i<app.getFoods().getFreezer().size(); i++) {
+							allFoods.add(app.getFoods().getFreezer().get(i));
+						}
+						for(int i = 0; i<app.getFoods().getFridge().size(); i++) {
+							allFoods.add(app.getFoods().getFridge().get(i));
+						}
+						for(int i = 0; i<app.getFoods().getPantry().size(); i++) {
+							allFoods.add(app.getFoods().getPantry().get(i));
+						}
+						try {
+							num = Integer.parseInt(scone.nextLine());
+						}
+						catch (NumberFormatException e) {
+							System.out.println("Not a valid entry. Displaying by storage.");
+						}
+						switch(num) {
+							case 2 :{
+								Food.byName = false;
+								Collections.sort(allFoods);
+								for(int i = 0; i<allFoods.size(); i++) {
+									System.out.println(allFoods.get(i));
+								}
+								break;
+							}
+							case 3 :{
+								Food.byName = true;
+								Collections.sort(allFoods);
+								for(int i = 0; i<allFoods.size(); i++) {
+									System.out.println(allFoods.get(i));
+								}
+								break;
+							}
+							default :{
+								for(int i = 0; i<allFoods.size(); i++) {
+									System.out.println(allFoods.get(i));
+								}
+								break;
+							}
+						}
 					}
 					default :{
 						System.out.println("Not a valid command.");
