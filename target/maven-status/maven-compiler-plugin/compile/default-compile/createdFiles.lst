@@ -8,4 +8,5 @@ main/java/com/FoodTracker/Storage.class
 main/java/com/FoodTracker/GroceryList.class
 main/java/com/FoodTracker/Leftover.class
 main/java/com/FoodTracker/Mode.class
+main/java/com/FoodTracker/FavoriteFoodException.class
 main/java/com/FoodTracker/FTAParser.class

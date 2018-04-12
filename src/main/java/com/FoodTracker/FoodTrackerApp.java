@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 public class FoodTrackerApp {
 	
-	public final static int millisecondsInDay = 86400000;
+	public final static long millisecondsInDay = 
+			Integer.toUnsignedLong(86400000);
 	private static int warningTime = 3;
 	private static int grocGenerate = 7;
 	private static int freezerTime = 30;

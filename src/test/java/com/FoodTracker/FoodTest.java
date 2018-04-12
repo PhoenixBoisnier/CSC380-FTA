@@ -51,15 +51,13 @@ public class FoodTest {
 	  }
 	  
 	  @Test public void AboutToExpireFoodTest() {
-		  //TODO figure out if I'm testing wrong or if method aboutToExpire
-		  //is not functioning
-	/*	  final int THREEDAYS = 3;
+		  final int THREEDAYS = 3;
 		  assertFalse(cans.aboutToExpire(THREEDAYS));
 		  assertTrue(abtCans.aboutToExpire(THREEDAYS));
 		  assertFalse(fruit.aboutToExpire(THREEDAYS));
 		  assertTrue(abtFruit.aboutToExpire(THREEDAYS));
 		  assertFalse(bread.aboutToExpire(THREEDAYS));
-		  assertTrue(abtBread.aboutToExpire(THREEDAYS)); */
+		  assertTrue(abtBread.aboutToExpire(THREEDAYS)); 
 	  }
 	  
 	  @Test public void saveFoodTest() {
