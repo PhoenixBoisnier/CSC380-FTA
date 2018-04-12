@@ -51,6 +51,9 @@ public class Food implements Comparable<Food>{
 		this.expiration = exp;
 	}
 	
+	public String toString() {
+		return this.name;
+	}
 	
 	/**
 	 * Special method used by the parser.
@@ -133,7 +136,7 @@ public class Food implements Comparable<Food>{
 	 */
 	public int compareTo(Food f) {
 		if(byName) {
-			return this.name.compareTo(f.name);
+			return this.name.toUpperCase().compareTo(f.name.toUpperCase());
 		}
 		else {
 			return Long.compare(this.expiration, f.expiration);

@@ -193,8 +193,11 @@ public class FTA_CmdRunner {
 						break;
 					}
 					case "EXPIRED" :{
-						System.out.println(app.expiredFoods());
-						System.out.println(app.addToListExpired(scone));
+						String expiredResult = app.expiredFoods();
+						System.out.println(expiredResult);
+						if(!expiredResult.equals("No foods are expired.")) {
+							System.out.println(app.addToListExpired(scone));
+						}
 						break;
 					}
 					case "FAVORITE" :{
@@ -234,7 +237,7 @@ public class FTA_CmdRunner {
 						}
 						switch(num) {
 							case 2 :{
-								Food.byName = false;
+								Food.byName = true;
 								Collections.sort(allFoods);
 								for(int i = 0; i<allFoods.size(); i++) {
 									System.out.println(allFoods.get(i));
@@ -242,7 +245,7 @@ public class FTA_CmdRunner {
 								break;
 							}
 							case 3 :{
-								Food.byName = true;
+								Food.byName = false;
 								Collections.sort(allFoods);
 								for(int i = 0; i<allFoods.size(); i++) {
 									System.out.println(allFoods.get(i));
