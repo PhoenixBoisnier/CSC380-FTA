@@ -16,6 +16,9 @@ public class FTA_CmdRunner {
 		Scanner scone = new Scanner(System.in);
 		FoodTrackerApp app = new FoodTrackerApp(list, food);
 		
+		String adminPowers = "advance: asks for food name and makes it about"
+				+ " to expire.\n"
+				+ "expire: expires all the food in the storage.";
 		
 		boolean running = true;
 		boolean setup = true;
@@ -108,6 +111,7 @@ public class FTA_CmdRunner {
 				/*
 				done - "add: asks for info about food to be stored."
 				done - "display: asks for display type, then displays all food.\n"
+			 	done - "empty: empties all storage locations. Cannot be undone.\n"
 				done - "exit: saves data and exits the program.\n"
 				done - "expired: lists all expired foods then asks the user\n"
 				done - "if they would like them added to the grocery list and \n"
@@ -153,6 +157,10 @@ public class FTA_CmdRunner {
 						setup = true;
 						break;
 					}
+					case "ADMINPOWERS" :{
+						System.out.println(adminPowers);
+						break;
+					}
 					case "SEARCH" :{
 						System.out.println(app.findIt(scone, input));
 						break;
@@ -186,6 +194,20 @@ public class FTA_CmdRunner {
 					}
 					case "REMOVE" :{
 						app.removeFood(scone);
+						break;
+					}
+					case "EMPTY" :{
+						System.out.println("You are attempting to empty the storage.");
+						System.out.println("Are you sure you want to do this? y/n");
+						String yn = scone.nextLine();
+						if(yn.toUpperCase().equals("Y")) {
+							System.out.println("You selected yes. This action cannot be"
+									+ "undone. Continues? y/n");
+							yn = scone.nextLine();
+							if(yn.toUpperCase().equals("Y")) {
+								app.resetAllFoodStorage(yn.toUpperCase());
+							}
+						}
 						break;
 					}
 					case "WARNINGS" :{
@@ -259,6 +281,64 @@ public class FTA_CmdRunner {
 								break;
 							}
 						}
+					}
+//---------------------------------here be cheat codes-------------------------------
+					case "ADVANCE" :{
+						System.out.println("Where is the food?");
+						String where = scone.nextLine();
+						System.out.println("Food name?:");
+						String foodN = scone.nextLine();
+						int aboutToExpire = app.getWarningTime()-1;
+						Storage s = app.getFoods();
+						switch (where.toUpperCase()) {
+							case  "FREEZER" :{
+								for(int i = 0; i<s.getFreezer().size(); i++) {
+									if(s.getFreezer().get(i).getName().equals(foodN)) {
+										Food fo = s.getFreezer().get(i);
+										Food f = new Food(
+												fo.getName(),
+												fo.getCost(),
+												-aboutToExpire
+												);
+										s.getFreezer().set(i, f);
+									}
+								}
+								break;
+							}
+							case "PANTRY" :{
+								for(int i = 0; i<s.getPantry().size(); i++) {
+									if(s.getPantry().get(i).getName().equals(foodN)) {
+										Food fo = s.getPantry().get(i);
+										Food f = new Food(
+												fo.getName(),
+												fo.getCost(),
+												-aboutToExpire
+												);
+										s.getPantry().set(i, f);
+									}
+								}
+								break;
+							}
+							default :{
+								for(int i = 0; i<s.getFridge().size(); i++) {
+									if(s.getFridge().get(i).getName().equals(foodN)) {
+										Food fo = s.getFridge().get(i);
+										Food f = new Food(
+												fo.getName(),
+												fo.getCost(),
+												-aboutToExpire
+												);
+										s.getFridge().set(i, f);
+									}
+								}
+								break;
+							}
+						}
+						break;
+					}
+					case "EXPIRE" :{
+						
+						break;
 					}
 					default :{
 						System.out.println("Not a valid command.");

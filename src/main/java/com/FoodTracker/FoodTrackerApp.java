@@ -19,6 +19,7 @@ public class FoodTrackerApp {
 			+ "Type any of these commands and press enter when ready.\n"
 			+ "add: Asks for info about food to be stored."
 			+ "display: asks for display type, then displays all food.\n"
+			+ "empty: empties all storage locations. Cannot be undone.\n"
 			+ "exit: Saves data and exits the program.\n"
 			+ "expired: lists all expired foods then asks the user\n"
 			+ "if they would like them added to the grocery list and \n"
@@ -41,8 +42,7 @@ public class FoodTrackerApp {
 	/* Overall to-do list
 	 * TODO:	fix parser
 	 */
-	
-	/*TODO check this throughout 
+	/*
 	 *10: Stores food by category-----------------------------------------done
 	 *10: Displays food available based on some order---------------------done
 	 *10: Can add/remove food to the list---------------------------------done
@@ -592,8 +592,21 @@ public class FoodTrackerApp {
 		freezerTime = t;
 	}
 	
+	/**
+	 * Gets the storage class from the app.
+	 * @return
+	 */
 	public Storage getFoods() {
 		return food;
 	}
-
+	
+	/**
+	 * Resets the storage in the app if the input it "Y"
+	 * @param y
+	 */
+	public void resetAllFoodStorage(String y) {
+		if(y.equals("Y")) {
+			this.food = new Storage();
+		}
+	}
 }

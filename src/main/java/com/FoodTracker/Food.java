@@ -28,10 +28,11 @@ public class Food implements Comparable<Food>{
 		this.name = name;
 		this.cost = cost;
 		this.daysToExpire = daysToExpire;
-		time = System.currentTimeMillis();
+		this.time = System.currentTimeMillis();
 		//Expiration is the time determined by adding the number of days to
 		//expiration to the system time when the food was input
-		expiration = time+(this.daysToExpire*FoodTrackerApp.millisecondsInDay);
+		this.expiration = time+(Integer.toUnsignedLong(this.daysToExpire)
+				*FoodTrackerApp.millisecondsInDay);
 	}
 	
 	/**
