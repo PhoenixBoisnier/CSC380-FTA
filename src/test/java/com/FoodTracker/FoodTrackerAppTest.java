@@ -9,6 +9,7 @@ import java.util.Scanner;
 import org.junit.Test;
 
 import main.java.com.FoodTracker.AddFoodException;
+import main.java.com.FoodTracker.FTAParser;
 import main.java.com.FoodTracker.Food;
 import main.java.com.FoodTracker.FoodTrackerApp;
 import main.java.com.FoodTracker.GroceryList;
@@ -17,9 +18,8 @@ import main.java.com.FoodTracker.Storage;
 
 public class FoodTrackerAppTest {
 	
-	Storage food = new Storage();
-	GroceryList list = new GroceryList();
-	FoodTrackerApp testApp = new FoodTrackerApp(list, food);
+	FTAParser p = new FTAParser();
+	FoodTrackerApp testApp = new FoodTrackerApp(p);
 	
 	public Scanner makeInput(String userInput) {
 		
@@ -52,9 +52,9 @@ public class FoodTrackerAppTest {
 		String input = "";
 		testApp.addIt(scone, input);
 		
-		assertTrue(food.getFridge().size()==1);
-		assertFalse(food.getFreezer().size()==1);
-		assertFalse(food.getPantry().size()==1);
+		assertTrue(testApp.getFoods().getFridge().size()==1);
+		assertFalse(testApp.getFoods().getFreezer().size()==1);
+		assertFalse(testApp.getFoods().getPantry().size()==1);
 		
 	}
 	
@@ -115,8 +115,8 @@ public class FoodTrackerAppTest {
 		input = "";
 		testApp.removeFood(scone);
 		
-		assertTrue(food.getFridge().size()==0);
-		assertTrue(list.getSize()==1);
+		assertTrue(testApp.getFoods().getFridge().size()==0);
+		assertTrue(testApp.getList().getSize()==1);
 		
 	}
 	
@@ -125,10 +125,10 @@ public class FoodTrackerAppTest {
 		String addLeftoversTestInput = "chicken soup\nn\n";
 		Scanner scone = makeInput(addLeftoversTestInput);
 		
-		food.addLeftover(scone);
-		assertTrue(food.getFridge().size()==1);
-		assertTrue(food.getFridge().get(0).isLeftover());
-		assertFalse(food.getFreezer().size()==1);
+		testApp.getFoods().addLeftover(scone);
+		assertTrue(testApp.getFoods().getFridge().size()==1);
+		assertTrue(testApp.getFoods().getFridge().get(0).isLeftover());
+		assertFalse(testApp.getFoods().getFreezer().size()==1);
 		
 	}
 	
@@ -140,7 +140,7 @@ public class FoodTrackerAppTest {
 		testApp.addLeftovers(scone);
 		
 		String value = "These are the leftovers present:\n"
-				+"\t"+food.getFridge().get(0).getName()+" in fridge";
+				+"\t"+testApp.getFoods().getFridge().get(0).getName()+" in fridge";
 		
 		assertTrue(testApp.findLeftovers().equals(value));
 		
@@ -151,11 +151,13 @@ public class FoodTrackerAppTest {
 		String addExpiredTest = "1\n";
 		Scanner scone = makeInput(addExpiredTest);
 		
-		food = new Storage();
+		Storage food = new Storage();
+		GroceryList list = new GroceryList();
 		food.AddFood(new Food("Expired meat", 10.00, 1, 
 					System.currentTimeMillis(), System.currentTimeMillis()-1),
 				Mode.FRIDGE, list);
-		testApp = new FoodTrackerApp(list, food);
+		testApp = new FoodTrackerApp(p);
+		testApp.testMethod1(food, list);
 		
 		String value = "Added expired foods to grocery list."
 				+"\nExpired foods removed from storage.";
@@ -174,11 +176,13 @@ public class FoodTrackerAppTest {
 		String addExpiredTest = "2\n";
 		Scanner scone = makeInput(addExpiredTest);
 		
-		food = new Storage();
+		Storage food = new Storage();
+		GroceryList list = new GroceryList();
 		food.AddFood(new Food("Expired meat", 10.00, 1, 
 					System.currentTimeMillis(), System.currentTimeMillis()-1),
 				Mode.FRIDGE, list);
-		testApp = new FoodTrackerApp(list, food);
+		testApp = new FoodTrackerApp(p);
+		testApp.testMethod1(food, list);
 		
 		String value = "Expired foods only removed from storage.";
 		
@@ -195,11 +199,13 @@ public class FoodTrackerAppTest {
 		String addExpiredTest = "3\n";
 		Scanner scone = makeInput(addExpiredTest);
 		
-		food = new Storage();
+		Storage food = new Storage();
+		GroceryList list = new GroceryList();
 		food.AddFood(new Food("Expired meat", 10.00, 1, 
 					System.currentTimeMillis(), System.currentTimeMillis()-1),
 				Mode.FRIDGE, list);
-		testApp = new FoodTrackerApp(list, food);
+		testApp = new FoodTrackerApp(p);
+		testApp.testMethod1(food, list);
 		
 		String value = "No action performed.";
 		
@@ -214,8 +220,11 @@ public class FoodTrackerAppTest {
 	
 	@Test public void printGroceryListTest() {
 		
+		Storage food = new Storage();
+		GroceryList list = new GroceryList();
 		list.manualAdd(new Food("Meat", 10.0, 1));
-		testApp = new FoodTrackerApp(list, new Storage());
+		testApp = new FoodTrackerApp(p);
+		testApp.testMethod1(food, list);
 		String printVal = "It's time to go shopping. Here is "
 				+ "your grocery list:\n";
 		printVal+="Meat, cost: 10.0\n";
@@ -226,11 +235,14 @@ public class FoodTrackerAppTest {
 	
 	@Test public void expiredFoodsTest() {
 		
+		Storage food = new Storage();
+		GroceryList list = new GroceryList();
 		food = new Storage();
 		food.AddFood(new Food("Expired meat", 10.00, 1, 
 					System.currentTimeMillis(), System.currentTimeMillis()-1),
 				Mode.FRIDGE, list);
-		testApp = new FoodTrackerApp(list, food);
+		testApp = new FoodTrackerApp(p);
+		testApp.testMethod1(food, list);
 		
 		String printVal = "Expired foods:\n"
 				+"\tExpired meat\n";

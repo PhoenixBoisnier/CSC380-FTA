@@ -8,13 +8,9 @@ public class FTA_CmdRunner {
 
 	public static void main(String[] args) {
 		
-		GroceryList list = new GroceryList();
-		Storage food = new Storage();
-		FTAParser p = new FTAParser(list, food);
-		list = p.getList();
-		food = p.getStorage();
+		FTAParser p = new FTAParser();
 		Scanner scone = new Scanner(System.in);
-		FoodTrackerApp app = new FoodTrackerApp(list, food);
+		FoodTrackerApp app = new FoodTrackerApp(p);
 		
 		String adminPowers = "advance: asks for food name and makes it about"
 				+ " to expire.\n"
@@ -278,9 +274,9 @@ public class FTA_CmdRunner {
 								for(int i = 0; i<allFoods.size(); i++) {
 									System.out.println(allFoods.get(i));
 								}
-								break;
 							}
 						}
+						break;
 					}
 //---------------------------------here be cheat codes-------------------------------
 					case "ADVANCE" :{

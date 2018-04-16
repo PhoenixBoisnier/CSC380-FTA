@@ -13,17 +13,16 @@ public class FoodTrackerApp {
 	private int exists = 0;
 	private Storage food;
 	private GroceryList list;
-	private FTAParser p;
 	private HashMap<String, Food> favorites = new HashMap<>();
 	private String commandList = ""
 			+ "Type any of these commands and press enter when ready.\n"
-			+ "add: Asks for info about food to be stored."
+			+ "add: Asks for info about food to be stored.\n"
 			+ "display: asks for display type, then displays all food.\n"
 			+ "empty: empties all storage locations. Cannot be undone.\n"
 			+ "exit: Saves data and exits the program.\n"
 			+ "expired: lists all expired foods then asks the user\n"
 			+ "if they would like them added to the grocery list and \n"
-			+ "removed from their locations, only removed, or left alone."
+			+ "removed from their locations, only removed, or left alone.\n"
 			+ "favorites: opens favorites command.\n"
 			+ "find: Asks for a food to search for.\n"
 			+ "h: Displays a list of commands.\n"
@@ -40,13 +39,12 @@ public class FoodTrackerApp {
 			+ "expire, if any, as well as the grocery list, if ready.\n";
 	
 	/* Overall to-do list
-	 * TODO:	fix parser
 	 */
 	/*
 	 *10: Stores food by category-----------------------------------------done
 	 *10: Displays food available based on some order---------------------done
 	 *10: Can add/remove food to the list---------------------------------done
-	 *10: Persistent memory
+	 *10: Persistent memory-----------------------------------------------done
 	 *9: Command menu-----------------------------------------------------done
 	 *7: Grocery list generation------------------------------------------done
 	 *7: Search-able lists------------------------------------------------done
@@ -56,7 +54,7 @@ public class FoodTrackerApp {
 	 *10: User can use this program to store food in a database.----------done
 	 *2: User can see stored food based on expiration date/other info.----done
 	 *1: User's input is stored in categories.----------------------------done
-	 *5: User's info is stored between sessions.
+	 *5: User's info is stored between sessions.--------------------------done
 	 *3: User interacts with the program via command menu.----------------done
 	 *3: User can search lists by food name/other.------------------------done
 	 *2: Program will generate shopping lists for user.-------------------done
@@ -65,16 +63,14 @@ public class FoodTrackerApp {
 	 *
 	 */
 	
-	public FoodTrackerApp(GroceryList list, Storage food) {
+	public FoodTrackerApp(FTAParser p) {
 		
-		this.food = food;
-		this.list = list;
-//		this.p = new FTAParser(list, food);
-//		exists = p.getExists();
-//		warningTime = p.getDaysWarning();
-//		grocGenerate = p.getListGenerate();
-//		freezerTime = p.getFreezerTime();
-		//TODO uncomment this once it works
+		this.food = p.getStorage();
+		this.list = p.getList();
+		exists = p.getExists();
+		warningTime = p.getDaysWarning();
+		grocGenerate = p.getListGenerate();
+		freezerTime = p.getFreezerTime();
 		
 	}
 	
@@ -85,8 +81,8 @@ public class FoodTrackerApp {
 	 * @param s
 	 */
 	public void exit() {
-		//TODO fix the parser
-		p.saveFile(list, food, warningTime, grocGenerate, freezerTime);
+		new FTAParser().saveFile(list, food, favorites,
+				warningTime, grocGenerate, freezerTime);
 	}
 	
 	/**
@@ -598,6 +594,24 @@ public class FoodTrackerApp {
 	 */
 	public Storage getFoods() {
 		return food;
+	}
+	
+	/**
+	 * Method used by test class.
+	 * @param s
+	 * @param l
+	 */
+	public void testMethod1(Storage s, GroceryList l) {
+		food = s;
+		list = l;
+	}
+	
+	/**
+	 * Gets the grocery list.
+	 * @return
+	 */
+	public GroceryList getList() {
+		return list;
 	}
 	
 	/**
