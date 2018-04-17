@@ -11,7 +11,7 @@ package main.java.com.FoodTracker;
  */
 public class Food implements Comparable<Food>{
 	
-	static boolean byName = true;
+	public static boolean byName = true;
 	private String name;
 	private double cost;
 	private int daysToExpire;

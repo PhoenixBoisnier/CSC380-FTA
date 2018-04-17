@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import main.java.com.FoodTracker.AddFoodException;
 import main.java.com.FoodTracker.FTAParser;
+import main.java.com.FoodTracker.FavoriteFoodException;
 import main.java.com.FoodTracker.Food;
 import main.java.com.FoodTracker.FoodTrackerApp;
 import main.java.com.FoodTracker.GroceryList;
@@ -50,6 +51,7 @@ public class FoodTrackerAppTest {
 		String addItTestInput = "fridge\napple\n2.0\n30\ny\n";
 		Scanner scone = makeInput(addItTestInput);
 		String input = "";
+		testApp.testMethod1(new Storage(), new GroceryList());
 		testApp.addIt(scone, input);
 		
 		assertTrue(testApp.getFoods().getFridge().size()==1);
@@ -108,6 +110,7 @@ public class FoodTrackerAppTest {
 		String addItTestInput = "fridge\napple\n2.0\n30\ny\n";
 		Scanner scone = makeInput(addItTestInput);
 		String input = "";
+		testApp.testMethod1(new Storage(), new GroceryList());
 		testApp.addIt(scone, input);
 		
 		String removeItInput = "fridge\napple\n";
@@ -124,8 +127,9 @@ public class FoodTrackerAppTest {
 		
 		String addLeftoversTestInput = "chicken soup\nn\n";
 		Scanner scone = makeInput(addLeftoversTestInput);
-		
+		testApp.testMethod1(new Storage(), new GroceryList());
 		testApp.getFoods().addLeftover(scone);
+		
 		assertTrue(testApp.getFoods().getFridge().size()==1);
 		assertTrue(testApp.getFoods().getFridge().get(0).isLeftover());
 		assertFalse(testApp.getFoods().getFreezer().size()==1);
@@ -136,7 +140,7 @@ public class FoodTrackerAppTest {
 		
 		String findLeftoversTestInput = "fridge\napple\n2.0\n30\ny\n";
 		Scanner scone = makeInput(findLeftoversTestInput);
-		
+		testApp.testMethod1(new Storage(), new GroceryList());
 		testApp.addLeftovers(scone);
 		
 		String value = "These are the leftovers present:\n"
@@ -249,6 +253,41 @@ public class FoodTrackerAppTest {
 		
 		assertTrue(testApp.expiredFoods().equals(printVal));
 		
+	}
+	
+	@Test public void favoritesTest() {
+		String favoritesTestInput = "fridge\napple\n2.0\n30\ny\n";
+		Scanner scone = makeInput(favoritesTestInput);
+		testApp.testMethod1(new Storage(), new GroceryList());
+		testApp.addIt(scone,"");
+		
+		favoritesTestInput = "fridge\napple\n";
+		scone = makeInput(favoritesTestInput);
+		testApp.removeFood(scone);
+				
+		favoritesTestInput = "fridge\napple\ny\n";
+		scone = makeInput(favoritesTestInput);
+		testApp.addIt(scone,"");
+		
+		assertTrue(testApp.getFoods().getFridge().get(0).getName().equals("apple"));
+		assertTrue(testApp.getFoods().getFridge().get(0).getCost()==2.0);
+	}
+	
+	@Test public void favoritesRetrievalTest() {
+		String favoritesTestInput = "fridge\napple\n2.0\n30\ny\n";
+		Scanner scone = makeInput(favoritesTestInput);
+		testApp.testMethod1(new Storage(), new GroceryList());
+		testApp.addIt(scone,"");
+		
+		favoritesTestInput = "fridge\napple\n";
+		scone = makeInput(favoritesTestInput);
+		testApp.removeFood(scone);
+		
+		try {
+			assertFalse(testApp.findFave("apple")==null);
+		} catch (FavoriteFoodException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//TODO printCloseToExpiringTest

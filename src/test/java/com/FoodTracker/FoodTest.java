@@ -76,4 +76,14 @@ public class FoodTest {
 		  assertFalse(bread.saveFood().equals(""));
 		  
 	  }
+	  
+	  @Test public void compareToTest() {
+		  Food f1 = new Food("apple",2.0,30);
+		  Food f2 = new Food("bread",2.0,10);
+		  
+		  Food.byName = true;
+		  assertTrue(f1.compareTo(f2)<0);
+		  Food.byName = false;
+		  assertTrue(f1.compareTo(f2)>0);
+	  }
 	}

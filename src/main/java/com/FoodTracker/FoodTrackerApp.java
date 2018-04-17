@@ -607,6 +607,14 @@ public class FoodTrackerApp {
 	}
 	
 	/**
+	 * Method used by test class.
+	 * @param f
+	 */
+	public void testMethod2(HashMap<String,Food> f) {
+		favorites = f;
+	}
+	
+	/**
 	 * Gets the grocery list.
 	 * @return
 	 */
