@@ -63,18 +63,20 @@ public class GroceryList {
 	 * added to the grocery list.
 	 */
 	public String toString() {
-		String s = "";
+		String s = "\t";
+		double total = 0.0;
 		for(Food f : list) {
 			s+=f.getName();
 			if(f.getCost()!=0) {
 				s+=", cost: "+f.getCost();
+				total+=f.getCost();
 			}
-			s+="\n";
+			s+="\n\t";
 		}
-		if(s.equals("")) {
+		if(s.equals("\t")) {
 			s = "You don't have anything in your list.";
 		}
-		return s;
+		return s+"\nTotal cost is: "+total+"\n";
 	}
 	
 	/**

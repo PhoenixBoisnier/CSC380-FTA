@@ -106,9 +106,10 @@ public class FTA_CmdRunner {
 			while(!input.equals("EXIT")&&setup==false) {
 				//Secondary loop where input commands are given.
 				/*
-				done - "add: asks for info about food to be stored."
+				done - "add: asks for info about food to be stored.\n"
 				done - "display: asks for display type, then displays all food.\n"
 			 	done - "empty: empties all storage locations. Cannot be undone.\n"
+			 	done - "empty list: clears grocery list. Cannot be undone.\n"
 				done - "exit: saves data and exits the program.\n"
 				done - "expired: lists all expired foods then asks the user\n"
 				done - "if they would like them added to the grocery list and \n"
@@ -203,6 +204,34 @@ public class FTA_CmdRunner {
 							yn = scone.nextLine();
 							if(yn.toUpperCase().equals("Y")) {
 								app.resetAllFoodStorage(yn.toUpperCase());
+							}
+						}
+						break;
+					}
+					case "EMPTY LIST" :{
+						System.out.println("You are attempting to clear the list.");
+						System.out.println("Are you sure you want to do this? y/n");
+						String yn = scone.nextLine();
+						if(yn.toUpperCase().equals("Y")) {
+							System.out.println("You selected yes. This action cannot be"
+									+ "undone. Continues? y/n");
+							yn = scone.nextLine();
+							if(yn.toUpperCase().equals("Y")) {
+								app.testMethod1(app.getFoods(), new GroceryList());
+							}
+						}
+						break;
+					}
+					case "EMPTYLIST" :{
+						System.out.println("You are attempting to clear the list.");
+						System.out.println("Are you sure you want to do this? y/n");
+						String yn = scone.nextLine();
+						if(yn.toUpperCase().equals("Y")) {
+							System.out.println("You selected yes. This action cannot be"
+									+ "undone. Continues? y/n");
+							yn = scone.nextLine();
+							if(yn.toUpperCase().equals("Y")) {
+								app.testMethod1(app.getFoods(), new GroceryList());
 							}
 						}
 						break;
