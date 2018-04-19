@@ -9,7 +9,7 @@ public class FoodTrackerApp {
 	private static int warningTime = 3;
 	private static int grocGenerate = 7;
 	private static int freezerTime = 30;
-	private static long prevTime;
+	private static long beginTime = System.currentTimeMillis();
 	private int exists = 0;
 	private Storage food;
 	private GroceryList list;
@@ -71,18 +71,28 @@ public class FoodTrackerApp {
 		warningTime = p.getDaysWarning();
 		grocGenerate = p.getListGenerate();
 		freezerTime = p.getFreezerTime();
+		beginTime = p.getBeginTime();
 		
 	}
 	
 	/**
+	 * Sets the beginTime to current system time.
+	 * Only to be used during setup.
+	 */
+	public void setBeginTime() {
+		beginTime = System.currentTimeMillis();
+	}
+	
+	public long getBeginTime() {
+		return beginTime;
+	}
+	
+	/**
 	 * This method saves the current data into a text file using the parser.
-	 * @param p
-	 * @param l
-	 * @param s
 	 */
 	public void exit() {
-		new FTAParser().saveFile(list, food, favorites,
-				warningTime, grocGenerate, freezerTime);
+		new FTAParser("/FTAsave.txt").saveFile(list, food, favorites,
+				warningTime, grocGenerate, freezerTime, beginTime);
 	}
 	
 	/**
@@ -307,12 +317,10 @@ public class FoodTrackerApp {
 	 * @param t
 	 * @return
 	 */
-	public String printUpdates(long t) {
+	public String printUpdates() {
 		System.out.println();
-		System.out.println("Caution; these foods are close to "
-				+ "expiring: ");
-		if(((System.currentTimeMillis()/1000)-(prevTime/1000))>=
-				grocGenerate*millisecondsInDay/1000) {
+		System.out.println("Caution; these foods are close to expiring: ");
+		if((System.currentTimeMillis()-beginTime)%grocGenerate<1) {
 			return printCloseToExpiring()+"\n"+printGroceryList();
 		}
 		else return printCloseToExpiring();
@@ -363,7 +371,7 @@ public class FoodTrackerApp {
 			}
 		}
 		if(value.equals("Foods about to expire:\n")) {
-			value = "No foods are close to expiring.";
+			value += "\tNo foods are close to expiring.";
 		}
 		return value; 
 	}
@@ -390,7 +398,7 @@ public class FoodTrackerApp {
 			}
 		}
 		if(value.equals("Expired foods:\n")) {
-			value = "No foods are expired.";
+			value += "\tNo foods are expired.";
 		}
 		return value; 
 	}

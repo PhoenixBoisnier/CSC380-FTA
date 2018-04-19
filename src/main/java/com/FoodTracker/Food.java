@@ -31,8 +31,7 @@ public class Food implements Comparable<Food>{
 		this.time = System.currentTimeMillis();
 		//Expiration is the time determined by adding the number of days to
 		//expiration to the system time when the food was input
-		this.expiration = time+(Integer.toUnsignedLong(this.daysToExpire)
-				*FoodTrackerApp.millisecondsInDay);
+		this.expiration = time+(this.daysToExpire*FoodTrackerApp.millisecondsInDay);
 	}
 	
 	/**
@@ -103,12 +102,14 @@ public class Food implements Comparable<Food>{
 	 * @return
 	 */
 	public boolean aboutToExpire(int t) {
-		long time = Integer.toUnsignedLong(t);
 		//This value then has the warning window time subtracted from it and 
 		//checked against the current time. If the current time is greater than
 		//or equal to this new value, the food is close to expiring.
-		if((expiration-(time*FoodTrackerApp.millisecondsInDay)
-				<= System.currentTimeMillis())) {
+		if((expiration-System.currentTimeMillis())
+				/FoodTrackerApp.millisecondsInDay<=t
+				&&
+				(expiration-System.currentTimeMillis())
+				/FoodTrackerApp.millisecondsInDay>=0) {
 			return true;
 		}
 		else return false;

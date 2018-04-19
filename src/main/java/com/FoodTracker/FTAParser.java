@@ -40,6 +40,7 @@ import java.util.Scanner;
 	 * -int: days before warning
 	 * -int: days to generate list
 	 * -int: days to save in freezer
+	 * -long: System time at save
 	 * end of file
 	 * 
  * This class reads and writes save files for the app.
@@ -59,9 +60,10 @@ public class FTAParser {
 	private int daysWarning;
 	private int listGenerate;
 	private int freezerTime;
+	private long prevTime;
 	private int exists = 0;
 	private final static String path = System.getProperty("user.home")+"/FTApp";
-	private static File input = new File(path+"/FTAsave.txt");
+	private File input;
 	private File dir = new File(path);
 	private Scanner scone = null;
 	private static BufferedWriter write = null;
@@ -72,8 +74,8 @@ public class FTAParser {
 	 * @param l
 	 * @param s
 	 */
-	public FTAParser() {
-		
+	public FTAParser(String s) {
+		input = new File(path+s);
 		//The input file should only not exist when the program is first run
 		//on a new machine.
 		if(!input.exists()) {
@@ -147,6 +149,14 @@ public class FTAParser {
 	}
 	
 	/**
+	 * Gives system time at last save
+	 * @return
+	 */
+	public long getBeginTime() {
+		return prevTime;
+	}
+	
+	/**
 	 * Returns 1 if there was a save file found.
 	 * @return
 	 */
@@ -183,13 +193,14 @@ public class FTAParser {
 	 * -int: days before warning
 	 * -int: days to generate list
 	 * -int: days to save in freezer
+	 * -long: System time at save
 	 * end of file
 	 * 
 	 * @param l
 	 * @param s
 	 */
 	public void saveFile(GroceryList l, Storage s, HashMap<String,Food> fave,
-			int warn, int gen, int frz) {
+			int warn, int gen, int frz, long bgn) {
 		System.out.println("Saving info...");
 		input.delete();
 		input = new File(path+"/FTAsave.txt");
@@ -250,6 +261,7 @@ public class FTAParser {
 			write.write(warn+"\n");
 			write.write(gen+"\n");
 			write.write(frz+"\n");
+			write.write(bgn+"\n");
 			
 			write.flush();
 			
@@ -289,6 +301,7 @@ public class FTAParser {
 	 * -int: days before warning
 	 * -int: days to generate list
 	 * -int: days to save in freezer
+	 * -long: System time at save
 	 * end of file
 	 */
 	private void readFile() {
@@ -356,6 +369,7 @@ public class FTAParser {
 			daysWarning = Integer.parseInt(scone.nextLine());
 			listGenerate = Integer.parseInt(scone.nextLine());
 			freezerTime = Integer.parseInt(scone.nextLine());
+			prevTime = Long.parseLong(scone.nextLine());
 
 		}
 		//in the case that input file does not exist somehow

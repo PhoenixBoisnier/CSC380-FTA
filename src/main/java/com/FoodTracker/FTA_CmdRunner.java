@@ -8,7 +8,7 @@ public class FTA_CmdRunner {
 
 	public static void main(String[] args) {
 		
-		FTAParser p = new FTAParser();
+		FTAParser p = new FTAParser("/FTAsave.txt");
 		Scanner scone = new Scanner(System.in);
 		FoodTrackerApp app = new FoodTrackerApp(p);
 		
@@ -31,7 +31,7 @@ public class FTA_CmdRunner {
 			//prints out foods about to expire as long as there are foods
 			//prints out the grocery list as long as there are foods
 			if(!setup) {
-				app.printUpdates(System.currentTimeMillis());
+				System.out.println(app.printUpdates());
 			}
 			//otherwise perform first time setup.
 			else {
@@ -91,6 +91,7 @@ public class FTA_CmdRunner {
 					}
 					app.setFreezerTime(num);
 				}
+				app.setBeginTime();
 				System.out.println("\nAwesome! Your grocery list will be "
 						+ "provided every "+app.getGrocGenerate()+" days.");
 				System.out.println("Alright, that looks like everything for"
@@ -207,7 +208,7 @@ public class FTA_CmdRunner {
 						break;
 					}
 					case "WARNINGS" :{
-						app.printUpdates(System.currentTimeMillis());
+						System.out.println(app.printUpdates());
 						break;
 					}
 					case "EXPIRED" :{

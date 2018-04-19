@@ -12,4 +12,7 @@ public class FTAParserTest {
 		  //TODO use methods from classes
 		  //TODO assertTrue(condition)
 	  }
+	  
+	  //TODO readFile
+	  //TODO writeFile
 	}

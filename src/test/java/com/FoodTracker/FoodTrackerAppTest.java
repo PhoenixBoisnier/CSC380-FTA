@@ -19,7 +19,7 @@ import main.java.com.FoodTracker.Storage;
 
 public class FoodTrackerAppTest {
 	
-	FTAParser p = new FTAParser();
+	FTAParser p = new FTAParser("/Test.txt");
 	FoodTrackerApp testApp = new FoodTrackerApp(p);
 	
 	public Scanner makeInput(String userInput) {
@@ -292,5 +292,4 @@ public class FoodTrackerAppTest {
 	
 	//TODO printCloseToExpiringTest
 	//TODO printUpdatesTest
-	//TODO exitTest
 }
