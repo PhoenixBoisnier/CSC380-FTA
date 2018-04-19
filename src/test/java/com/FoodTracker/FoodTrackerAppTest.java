@@ -168,7 +168,8 @@ public class FoodTrackerAppTest {
 		
 		String printVal = "It's time to go shopping. Here is "
 				+ "your grocery list:\n";
-		printVal+="Expired meat, cost: 10.0\n";
+		printVal+="\tExpired meat, cost: 10.0\n\t"
+				+"\nTotal cost is: "+10.0+"\n";
 		
 		assertTrue(testApp.addToListExpired(scone).equals(value));
 		assertTrue(testApp.printGroceryList().equals(printVal));
@@ -231,7 +232,8 @@ public class FoodTrackerAppTest {
 		testApp.testMethod1(food, list);
 		String printVal = "It's time to go shopping. Here is "
 				+ "your grocery list:\n";
-		printVal+="Meat, cost: 10.0\n";
+		printVal+="\tMeat, cost: 10.0\n\t"
+				+ "\nTotal cost is: "+10.0+"\n";
 		
 		assertTrue(testApp.printGroceryList().equals(printVal));
 		
@@ -290,6 +292,26 @@ public class FoodTrackerAppTest {
 		}
 	}
 	
-	//TODO printCloseToExpiringTest
-	//TODO printUpdatesTest
+	@Test public void closeToExpiringTest() {
+		testApp.testMethod1(new Storage(), new GroceryList());
+		String result = testApp.printCloseToExpiring();
+		
+		assertTrue(result.equals("Foods about to expire:\n"+
+				"\tNo foods are close to expiring.\n"));
+		
+		String closeCheese = "fridge\ncheese\n2.0\n1\ny\n";
+		Scanner scone = makeInput(closeCheese);
+		testApp.addIt(scone, "");
+		
+		//Apparently, the test happens too fast to register that the cheese 
+		//is, in fact, close to expiring
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		String result2 = testApp.printCloseToExpiring();
+		assertTrue(result2.equals("Foods about to expire:\n"+
+				"\t"+"cheese"+"\n"));
+	}
 }

@@ -74,9 +74,9 @@ public class GroceryList {
 			s+="\n\t";
 		}
 		if(s.equals("\t")) {
-			s = "You don't have anything in your list.";
+			return "You don't have anything in your list.";
 		}
-		return s+"\nTotal cost is: "+total+"\n";
+		else return s+"\nTotal cost is: "+total+"\n";
 	}
 	
 	/**

@@ -69,6 +69,7 @@ public class FoodTrackerApp {
 		this.food = p.getStorage();
 		this.list = p.getList();
 		exists = p.getExists();
+		favorites = p.getFaves();
 		warningTime = p.getDaysWarning();
 		grocGenerate = p.getListGenerate();
 		freezerTime = p.getFreezerTime();
@@ -320,11 +321,11 @@ public class FoodTrackerApp {
 	 */
 	public String printUpdates() {
 		System.out.println();
-		System.out.println("Caution; these foods are close to expiring: ");
-		if((System.currentTimeMillis()-beginTime)%grocGenerate<1) {
-			return printCloseToExpiring()+"\n"+printGroceryList();
+		if(((System.currentTimeMillis()-beginTime)/FoodTrackerApp.millisecondsInDay)%
+				grocGenerate<1) {
+			return expiredFoods()+printCloseToExpiring()+"\n"+printGroceryList();
 		}
-		else return printCloseToExpiring();
+		else return expiredFoods()+printCloseToExpiring();
 		
 	}
 	
@@ -372,7 +373,7 @@ public class FoodTrackerApp {
 			}
 		}
 		if(value.equals("Foods about to expire:\n")) {
-			value += "\tNo foods are close to expiring.";
+			value += "\tNo foods are close to expiring.\n";
 		}
 		return value; 
 	}
@@ -399,7 +400,7 @@ public class FoodTrackerApp {
 			}
 		}
 		if(value.equals("Expired foods:\n")) {
-			value += "\tNo foods are expired.";
+			value += "\tNo foods are expired.\n";
 		}
 		return value; 
 	}

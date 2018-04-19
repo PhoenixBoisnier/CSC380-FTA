@@ -65,6 +65,7 @@ public class FTAParser {
 	private final static String path = System.getProperty("user.home")+"/FTApp";
 	private File input;
 	private File dir = new File(path);
+	private String fileName;
 	private Scanner scone = null;
 	private static BufferedWriter write = null;
 	
@@ -75,10 +76,13 @@ public class FTAParser {
 	 * @param s
 	 */
 	public FTAParser(String s) {
+		fileName = s;
 		input = new File(path+s);
+		System.out.println("Loading file "+s.substring(1));
 		//The input file should only not exist when the program is first run
 		//on a new machine.
 		if(!input.exists()) {
+			System.out.println("File not found.");
 			dir.mkdirs();
 			try {
 				input.createNewFile();
@@ -88,6 +92,7 @@ public class FTAParser {
 		}
 		//Otherwise, it should exist.
 		else {
+			System.out.println("File found.");
 			try {
 				scone = new Scanner(input);
 				exists = 1;
@@ -203,7 +208,7 @@ public class FTAParser {
 			int warn, int gen, int frz, long bgn) {
 		System.out.println("Saving info...");
 		input.delete();
-		input = new File(path+"/FTAsave.txt");
+		input = new File(path+fileName);
 		try {
 			write = new BufferedWriter(new FileWriter(input));
 			System.out.println("Save-To file found...");
@@ -248,6 +253,7 @@ public class FTAParser {
 			}
 			Iterator<Entry<String, Food>> i = fave.entrySet().iterator();
 			write.write(fave.size()+"\n");
+			System.out.println("Saving favorites info...");
 			while (i.hasNext()) {
 			    Map.Entry<String, Food> pair = 
 			        (Map.Entry<String, Food>)i.next();

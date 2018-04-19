@@ -39,8 +39,9 @@ public class GroceryListTest {
 		  assertTrue(testList.toString().equals("You don't have anything in your list."));
 		  testList.manualAdd(new Food("Muffins", 2.00, 3));
 		  assertFalse(testList.toString().equals("You don't have anything in your list."));
-		  assertTrue(testList.toString().equals(testList.getFood(0).getName()+
-				  ", cost: "+testList.getFood(0).getCost()+"\n"));
+		  assertTrue(testList.toString().equals("\t"+testList.getFood(0).getName()+
+				  ", cost: "+testList.getFood(0).getCost()+"\n\t"
+				  +"\nTotal cost is: "+2.0+"\n"));
 		  
 	  }
 		
