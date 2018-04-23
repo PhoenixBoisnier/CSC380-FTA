@@ -108,8 +108,7 @@ public class Food implements Comparable<Food>{
 		if((expiration-System.currentTimeMillis())
 				/FoodTrackerApp.millisecondsInDay<=t
 				&&
-				(expiration-System.currentTimeMillis())
-				/FoodTrackerApp.millisecondsInDay>=0) {
+				!(expiration <= System.currentTimeMillis())) {
 			return true;
 		}
 		else return false;
