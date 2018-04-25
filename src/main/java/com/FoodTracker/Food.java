@@ -52,7 +52,8 @@ public class Food implements Comparable<Food>{
 	}
 	
 	public String toString() {
-		return this.name;
+		return this.name+"\nCosts: "+this.getCost()+
+				"\nExpires after "+this.daysToExpire+" days.\n";
 	}
 	
 	/**

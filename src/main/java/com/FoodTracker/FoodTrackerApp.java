@@ -24,7 +24,7 @@ public class FoodTrackerApp {
 			+ "-expired: lists all expired foods then asks the user\n"
 			+ "if they would like them added to the grocery list and \n"
 			+ "removed from their locations, only removed, or left alone.\n"
-			+ "-favorites: opens favorites command.\n"
+			+ "-favorite: opens favorites command.\n"
 			+ "-find: Asks for a food to search for.\n"
 			+ "-h: Displays a list of commands.\n"
 			+ "-help: Displays a list of commands.\n"
