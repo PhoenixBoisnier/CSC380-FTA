@@ -288,7 +288,7 @@ public class FTA_CmdRunner {
 								Food.byName = true;
 								Collections.sort(allFoods);
 								for(int i = 0; i<allFoods.size(); i++) {
-									System.out.println(allFoods.get(i));
+									System.out.println(allFoods.get(i).getName());
 								}
 								break;
 							}
@@ -296,13 +296,13 @@ public class FTA_CmdRunner {
 								Food.byName = false;
 								Collections.sort(allFoods);
 								for(int i = 0; i<allFoods.size(); i++) {
-									System.out.println(allFoods.get(i));
+									System.out.println(allFoods.get(i).getName());
 								}
 								break;
 							}
 							default :{
 								for(int i = 0; i<allFoods.size(); i++) {
-									System.out.println(allFoods.get(i));
+									System.out.println(allFoods.get(i).getName());
 								}
 							}
 						}
