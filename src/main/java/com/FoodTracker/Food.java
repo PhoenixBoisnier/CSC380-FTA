@@ -96,6 +96,10 @@ public class Food implements Comparable<Food>{
 		return name;
 	}
 	
+	public int getDays() {
+		return daysToExpire;
+	}
+	
 	/**
 	 * This method should take the waiting time and see if the time from 
 	 * insert is "t" days away from the expiration time.

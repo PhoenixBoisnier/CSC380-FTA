@@ -173,7 +173,8 @@ public class FoodTrackerApp {
 			System.out.println("y/n");
 			yn = scone.nextLine();
 			if(yn.toUpperCase().equals("Y")) {
-				return favorites.get(foodName);
+				Food temp = favorites.get(foodName);
+				return new Food(temp.getName(),temp.getCost(),temp.getDays());
 			}
 		}
 		if(favorites.containsKey(foodName)) {
