@@ -453,21 +453,24 @@ public class FoodTrackerApp {
 				retVal = "Added expired foods to grocery list.";
 				retVal+= "\nExpired foods removed from storage.";
 				for(int i = 0; i<food.getFreezer().size(); i++) {
-					if(food.getFreezer().get(i).isExpired()) {
+					if(food.getFreezer().get(i).isExpired()
+							&&(!food.getFreezer().get(i).isLeftover())) {
 						food.remove(food.getFreezer().get(i),
 								Mode.FREEZER, list);
 						i--;
 					}
 				}
 				for(int i = 0; i<food.getFridge().size(); i++) {
-					if(food.getFridge().get(i).isExpired()) {
+					if(food.getFridge().get(i).isExpired()
+							&&(!food.getFridge().get(i).isLeftover())) {
 						food.remove(food.getFridge().get(i),
 								Mode.FRIDGE, list);
 						i--;
 					}
 				}
 				for(int i = 0; i<food.getPantry().size(); i++) {
-					if(food.getPantry().get(i).isExpired()) {
+					if(food.getPantry().get(i).isExpired()
+							&&(!food.getPantry().get(i).isLeftover())) {
 						food.remove(food.getPantry().get(i),
 								Mode.PANTRY, list);
 						i--;
